@@ -1,0 +1,3 @@
+package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_details
+
+interface ArticleDetailsNavigator
