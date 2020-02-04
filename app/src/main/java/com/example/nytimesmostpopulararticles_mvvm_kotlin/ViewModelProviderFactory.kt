@@ -16,6 +16,7 @@ class ViewModelProviderFactory @Inject constructor(
     private val dataManager: DataManager,
     private val schedulerProvider: SchedulerProvider
 ) : NewInstanceFactory() {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(dataManager, schedulerProvider) as T
