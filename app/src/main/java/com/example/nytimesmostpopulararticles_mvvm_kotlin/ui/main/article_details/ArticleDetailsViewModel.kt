@@ -11,13 +11,12 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProv
 class ArticleDetailsViewModel(
     dataManager: DataManager?,
     schedulerProvider: SchedulerProvider?
-) : BaseViewModel<ArticleDetailsNavigator?>(dataManager!!, schedulerProvider!!) {
+) : BaseViewModel<ArticleDetailsNavigator?>(dataManager, schedulerProvider) {
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
     private fun insertArticle(article: Article?) {
-        dataManager
-            .insertArticle(article)
-            ?.subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
+        dataManager?.insertArticle(article)
+            ?.subscribeOn(schedulerProvider?.io())
+            ?.observeOn(schedulerProvider?.ui())
             ?.subscribe({ aBoolean ->
                 Log.d(
                     TAG,
@@ -37,10 +36,9 @@ class ArticleDetailsViewModel(
     }
 
     private fun deleteArticle(article: Article?) {
-        dataManager
-            .deleteArticle(article)
-            ?.subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
+        dataManager?.deleteArticle(article)
+            ?.subscribeOn(schedulerProvider?.io())
+            ?.observeOn(schedulerProvider?.ui())
             ?.subscribe({ aBoolean ->
                 Log.d(
                     TAG,
@@ -59,11 +57,10 @@ class ArticleDetailsViewModel(
             }
     }
 
-    fun findById(id: Long) {
-        dataManager
-            .findById(id)
-            ?.subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
+    fun findById(id: Long?) {
+        dataManager?.findById(id)
+            ?.subscribeOn(schedulerProvider?.io())
+            ?.observeOn(schedulerProvider?.ui())
             ?.subscribe({ article ->
                 Log.d(
                     TAG,

@@ -9,7 +9,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProv
 class FavoritesViewModel(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider?
-) : BaseViewModel<FavoritesNavigator?>(dataManager, schedulerProvider!!) {
+) : BaseViewModel<FavoritesNavigator?>(dataManager, schedulerProvider) {
     val articlesLiveDataLiveData: LiveData<List<Article?>?>? = dataManager.allArticles
 
 }

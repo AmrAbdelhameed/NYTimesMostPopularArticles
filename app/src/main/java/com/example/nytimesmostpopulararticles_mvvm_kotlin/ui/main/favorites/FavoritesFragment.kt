@@ -47,11 +47,11 @@ class FavoritesFragment :
     override fun onItemClick(article: Article?) {
         val bundle = Bundle()
         bundle.putParcelable(AppConstants.ARTICLE, article)
-        navController!!.navigate(R.id.action_favoritesFragment_to_articleDetailsFragment, bundle)
+        navController?.navigate(R.id.action_favoritesFragment_to_articleDetailsFragment, bundle)
     }
 
     override fun handleError(throwable: Throwable?) {
-        Toast.makeText(activity, throwable!!.message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun updateArticle(articles: List<Article?>?) {
@@ -60,7 +60,7 @@ class FavoritesFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoritesViewModel!!.setNavigator(this)
+        favoritesViewModel?.setNavigator(this)
         favoritesAdapter.setListener(this)
     }
 
@@ -76,18 +76,18 @@ class FavoritesFragment :
 
     private fun setUp() {
         if (activity != null) {
-            (activity as MainActivity?)!!.setSupportActionBar(fragmentFavoritesBinding!!.toolbar)
-            fragmentFavoritesBinding!!.toolbar.title = getString(R.string.favorites)
+            (activity as MainActivity?)?.setSupportActionBar(fragmentFavoritesBinding?.toolbar)
+            fragmentFavoritesBinding?.toolbar?.title = getString(R.string.favorites)
             val actionBar =
-                (activity as MainActivity?)!!.supportActionBar
+                (activity as MainActivity?)?.supportActionBar
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(true)
                 actionBar.setDisplayShowHomeEnabled(true)
             }
         }
-        fragmentFavoritesBinding!!.toolbar.setNavigationOnClickListener {
+        fragmentFavoritesBinding?.toolbar?.setNavigationOnClickListener {
             if (activity != null) {
-                activity!!.onBackPressed()
+                activity?.onBackPressed()
             }
         }
         setHasOptionsMenu(true)
@@ -95,10 +95,10 @@ class FavoritesFragment :
     }
 
     private fun setUpRecyclerView() {
-        fragmentFavoritesBinding!!.favoritesRecyclerView.layoutManager = LinearLayoutManager(
+        fragmentFavoritesBinding?.favoritesRecyclerView?.layoutManager = LinearLayoutManager(
             activity
         )
-        fragmentFavoritesBinding!!.favoritesRecyclerView.itemAnimator = DefaultItemAnimator()
-        fragmentFavoritesBinding!!.favoritesRecyclerView.adapter = favoritesAdapter
+        fragmentFavoritesBinding?.favoritesRecyclerView?.itemAnimator = DefaultItemAnimator()
+        fragmentFavoritesBinding?.favoritesRecyclerView?.adapter = favoritesAdapter
     }
 }

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "favorites")
 class Article(
-    @field:PrimaryKey val id: Long,
+    @field:PrimaryKey val id: Long?,
     @field:ColumnInfo(name = "image_url") val imageUrl: String?,
     val title: String?,
     val byline: String?,
@@ -29,7 +29,7 @@ class Article(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
+        id?.let { parcel.writeLong(it) }
         parcel.writeString(imageUrl)
         parcel.writeString(title)
         parcel.writeString(byline)

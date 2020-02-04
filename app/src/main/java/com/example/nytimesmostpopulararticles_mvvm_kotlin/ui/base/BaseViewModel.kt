@@ -8,8 +8,8 @@ import io.reactivex.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 
 abstract class BaseViewModel<N>(
-    val dataManager: DataManager,
-    val schedulerProvider: SchedulerProvider
+    val dataManager: DataManager?,
+    val schedulerProvider: SchedulerProvider?
 ) : ViewModel() {
     val isLoading = ObservableBoolean()
     val compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -24,7 +24,7 @@ abstract class BaseViewModel<N>(
     }
 
     val navigator: N?
-        get() = mNavigator!!.get()
+        get() = mNavigator?.get()
 
     fun setNavigator(navigator: N) {
         mNavigator = WeakReference(navigator)

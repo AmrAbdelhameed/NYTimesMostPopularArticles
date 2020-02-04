@@ -39,11 +39,11 @@ class ArticleDetailsFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        articleDetailsViewModel!!.setNavigator(this)
+        articleDetailsViewModel?.setNavigator(this)
         if (arguments != null) {
-            article = arguments!!.getParcelable(AppConstants.ARTICLE)
+            article = arguments?.getParcelable(AppConstants.ARTICLE)
             if (article != null) { // To check if article is favorite or not
-                articleDetailsViewModel!!.findById(article!!.id)
+                article?.id?.let { articleDetailsViewModel?.findById(it) }
             }
         }
     }
@@ -64,24 +64,24 @@ class ArticleDetailsFragment :
 
     private fun setArticle() {
         if (article != null) {
-            fragmentArticleDetailsBinding!!.article = article
+            fragmentArticleDetailsBinding?.article = article
         }
     }
 
     private fun setUpToolbar() {
         if (activity != null) {
-            (activity as MainActivity?)!!.setSupportActionBar(fragmentArticleDetailsBinding!!.toolbar)
+            (activity as MainActivity?)?.setSupportActionBar(fragmentArticleDetailsBinding?.toolbar)
             val actionBar =
-                (activity as MainActivity?)!!.supportActionBar
+                (activity as MainActivity?)?.supportActionBar
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(true)
                 actionBar.setDisplayShowHomeEnabled(true)
                 actionBar.setDisplayShowTitleEnabled(false)
             }
         }
-        fragmentArticleDetailsBinding!!.toolbar.setNavigationOnClickListener {
+        fragmentArticleDetailsBinding?.toolbar?.setNavigationOnClickListener {
             if (activity != null) {
-                activity!!.onBackPressed()
+                activity?.onBackPressed()
             }
         }
     }

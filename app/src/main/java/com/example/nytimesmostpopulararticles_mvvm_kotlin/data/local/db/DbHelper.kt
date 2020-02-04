@@ -7,6 +7,6 @@ import io.reactivex.Observable
 interface DbHelper {
     fun insertArticle(article: Article?): Observable<Boolean?>?
     fun deleteArticle(article: Article?): Observable<Boolean?>?
-    fun findById(id: Long): Observable<Article?>?
+    fun findById(id: Long?): Observable<Article?>?
     val allArticles: LiveData<List<Article?>?>?
 }

@@ -10,16 +10,16 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProv
 class ArticleViewModel(
     dataManager: DataManager?,
     schedulerProvider: SchedulerProvider?
-) : BaseViewModel<ArticleNavigator?>(dataManager!!, schedulerProvider!!) {
+) : BaseViewModel<ArticleNavigator?>(dataManager, schedulerProvider) {
     private val articlesLiveData: MutableLiveData<List<ArticlesResponse.Article>> =
         MutableLiveData()
 
     fun fetchArticles(period: Int) {
         setIsLoading(true)
         dataManager
-            .getArticlesApiCall(period)
-            ?.subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
+            ?.getArticlesApiCall(period)
+            ?.subscribeOn(schedulerProvider?.io())
+            ?.observeOn(schedulerProvider?.ui())
             ?.subscribe({ articlesResponse ->
                 if (articlesResponse?.articles != null) {
                     articlesLiveData.value = articlesResponse.articles
@@ -27,7 +27,7 @@ class ArticleViewModel(
                 setIsLoading(false)
             }) { throwable ->
                 setIsLoading(false)
-                navigator!!.handleError(throwable)
+                navigator?.handleError(throwable)
             }?.let {
                 compositeDisposable.add(
                     it

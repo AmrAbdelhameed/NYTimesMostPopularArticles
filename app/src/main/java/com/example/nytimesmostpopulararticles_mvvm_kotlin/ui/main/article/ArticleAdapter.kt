@@ -68,14 +68,14 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
     fun addItems(articles: List<ArticlesResponse.Article?>?) {
         if (articles != null) {
             for (article in articles) {
-                article?.let { this.articles!!.add(it) }
+                article?.let { this.articles?.add(it) }
             }
         }
         notifyDataSetChanged()
     }
 
     fun clearItems() {
-        articles!!.clear()
+        articles?.clear()
     }
 
     fun setListener(listener: ArticleAdapterListener?) {
@@ -91,15 +91,15 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
         BaseViewHolder(mBinding.root), ArticleItemViewModelListener {
         private var marticleItemViewModel: ArticleItemViewModel? = null
         override fun onBind(position: Int) {
-            val article = articles!![position]
-            marticleItemViewModel = ArticleItemViewModel(article, this)
+            val article = articles?.get(position)
+            marticleItemViewModel = article?.let { ArticleItemViewModel(it, this) }
             mBinding.viewModel = marticleItemViewModel
             mBinding.executePendingBindings()
         }
 
         override fun onItemClick(article: ArticlesResponse.Article?) {
             if (article != null) {
-                mListener!!.onItemClick(article)
+                mListener?.onItemClick(article)
             }
         }
 
@@ -113,7 +113,7 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
         }
 
         override fun onRetryClick() {
-            mListener!!.onRetryClick()
+            mListener?.onRetryClick()
         }
 
     }

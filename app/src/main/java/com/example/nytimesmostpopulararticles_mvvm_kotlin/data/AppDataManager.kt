@@ -33,7 +33,7 @@ class AppDataManager @Inject constructor(
         return mDbHelper.deleteArticle(article)
     }
 
-    override fun findById(id: Long): Observable<Article?>? {
+    override fun findById(id: Long?): Observable<Article?>? {
         return mDbHelper.findById(id)
     }
 

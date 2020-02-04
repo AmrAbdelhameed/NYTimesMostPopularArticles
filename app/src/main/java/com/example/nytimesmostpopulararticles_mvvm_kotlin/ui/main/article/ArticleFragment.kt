@@ -46,7 +46,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
         }
 
     override fun onRetryClick() {
-        articleViewModel!!.fetchArticles(7)
+        articleViewModel?.fetchArticles(7)
     }
 
     override fun onItemClick(article: ArticlesResponse.Article?) {
@@ -54,21 +54,21 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
         bundle.putParcelable(
             AppConstants.ARTICLE,
             Article(
-                article!!.id
-                , article.media?.get(0)?.mediametadata?.get(2)?.url
-                , article.title
-                , article.byline
-                , article.abstractX
-                , article.published_date
-                , article.url,
-                article.media?.get(0)?.mediametadata?.get(1)?.url
+                article?.id
+                , article?.media?.get(0)?.mediametadata?.get(2)?.url
+                , article?.title
+                , article?.byline
+                , article?.abstractX
+                , article?.published_date
+                , article?.url,
+                article?.media?.get(0)?.mediametadata?.get(1)?.url
             )
         )
-        navController!!.navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
+        navController?.navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
     }
 
     override fun handleError(throwable: Throwable?) {
-        Toast.makeText(activity, throwable!!.message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun updateArticle(articles: List<ArticlesResponse.Article?>?) {
@@ -77,7 +77,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        articleViewModel!!.setNavigator(this)
+        articleViewModel?.setNavigator(this)
         articleAdapter.setListener(this)
     }
 
@@ -92,19 +92,18 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
     }
 
     private fun setUp() {
-        if (activity != null) (activity as MainActivity?)!!.setSupportActionBar(
-            fragmentArticleBinding!!.toolbar
+        if (activity != null) (activity as MainActivity?)?.setSupportActionBar(
+            fragmentArticleBinding?.toolbar
         )
         setHasOptionsMenu(true)
         setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        fragmentArticleBinding!!.resultsBeanRecyclerView.layoutManager = LinearLayoutManager(
-            activity
-        )
-        fragmentArticleBinding!!.resultsBeanRecyclerView.itemAnimator = DefaultItemAnimator()
-        fragmentArticleBinding!!.resultsBeanRecyclerView.adapter = articleAdapter
+        fragmentArticleBinding?.resultsBeanRecyclerView?.layoutManager =
+            LinearLayoutManager(activity)
+        fragmentArticleBinding?.resultsBeanRecyclerView?.itemAnimator = DefaultItemAnimator()
+        fragmentArticleBinding?.resultsBeanRecyclerView?.adapter = articleAdapter
     }
 
     override fun onCreateOptionsMenu(
@@ -117,7 +116,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorites) {
-            navController!!.navigate(R.id.action_articleFragment_to_favoritesFragment)
+            navController?.navigate(R.id.action_articleFragment_to_favoritesFragment)
         }
         return super.onOptionsItemSelected(item)
     }

@@ -30,19 +30,16 @@ abstract class BaseDialog : DialogFragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         // creating the fullscreen dialog
-        val dialog = Dialog(context!!)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(root)
-        if (dialog.window != null) {
-            dialog.window!!
-                .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
-        dialog.setCanceledOnTouchOutside(false)
-        return dialog
+        val dialog = context?.let { Dialog(it) }
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.setContentView(root)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog?.setCanceledOnTouchOutside(false)
+        return dialog!!
     }
 
     override fun onDetach() {
@@ -66,33 +63,33 @@ abstract class BaseDialog : DialogFragment() {
 
     fun dismissDialog(tag: String?) {
         dismiss()
-        baseActivity!!.onFragmentDetached(tag!!)
+        baseActivity?.onFragmentDetached(tag)
     }
 
     fun hideKeyboard() {
         if (baseActivity != null) {
-            baseActivity!!.hideKeyboard()
+            baseActivity?.hideKeyboard()
         }
     }
 
     fun hideLoading() {
         if (baseActivity != null) {
-            baseActivity!!.hideLoading()
+            baseActivity?.hideLoading()
         }
     }
 
     val isNetworkConnected: Boolean
-        get() = baseActivity != null && baseActivity!!.isNetworkConnected
+        get() = baseActivity != null && baseActivity?.isNetworkConnected!!
 
     fun openActivityOnTokenExpire() {
         if (baseActivity != null) {
-            baseActivity!!.openActivityOnTokenExpire()
+            baseActivity?.openActivityOnTokenExpire()
         }
     }
 
     fun showLoading() {
         if (baseActivity != null) {
-            baseActivity!!.showLoading()
+            baseActivity?.showLoading()
         }
     }
 }

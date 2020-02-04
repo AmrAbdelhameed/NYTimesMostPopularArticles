@@ -14,10 +14,12 @@ object ViewUtils {
     ) {
         if (drawable != null) {
             drawable.mutate()
-            drawable.setColorFilter(
-                ContextCompat.getColor(context!!, R.color.dark_gray),
-                PorterDuff.Mode.SRC_ATOP
-            )
+            context?.let { ContextCompat.getColor(it, R.color.dark_gray) }?.let {
+                drawable.setColorFilter(
+                    it,
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            }
         }
     }
 

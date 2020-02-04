@@ -21,7 +21,7 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (articles != null && !articles.isEmpty()) {
+        return if (articles != null && articles.isNotEmpty()) {
             VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -68,14 +68,14 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
     fun addItems(articles: List<Article?>?) {
         if (articles != null) {
             for (article in articles) {
-                article?.let { this.articles!!.add(it) }
+                article?.let { this.articles?.add(it) }
             }
         }
         notifyDataSetChanged()
     }
 
     fun clearItems() {
-        articles!!.clear()
+        articles?.clear()
     }
 
     fun setListener(listener: FavoritesAdapterListener?) {
@@ -90,16 +90,15 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
         BaseViewHolder(mBinding.root), FavoritesItemViewModelListener {
         private var mfavoritesItemViewModel: FavoritesItemViewModel? = null
         override fun onBind(position: Int) {
-            val article =
-                articles!![position]
-            mfavoritesItemViewModel = FavoritesItemViewModel(article, this)
+            val article = articles?.get(position)
+            mfavoritesItemViewModel = article?.let { FavoritesItemViewModel(it, this) }
             mBinding.viewModel = mfavoritesItemViewModel
             mBinding.executePendingBindings()
         }
 
         override fun onItemClick(article: Article?) {
             if (article != null) {
-                mListener!!.onItemClick(article)
+                mListener?.onItemClick(article)
             }
         }
 

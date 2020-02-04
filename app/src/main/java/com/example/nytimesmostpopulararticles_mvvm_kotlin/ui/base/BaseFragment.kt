@@ -63,7 +63,7 @@ abstract class BaseFragment<T : ViewDataBinding?, V : BaseViewModel<*>?> :
         savedInstanceState: Bundle?
     ): View? {
         viewDataBinding = DataBindingUtil.inflate<T>(inflater, layoutId, container, false)
-        mRootView = viewDataBinding!!.root
+        mRootView = viewDataBinding?.root
         return mRootView
     }
 
@@ -77,23 +77,23 @@ abstract class BaseFragment<T : ViewDataBinding?, V : BaseViewModel<*>?> :
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding!!.setVariable(bindingVariable, mViewModel)
-        viewDataBinding!!.lifecycleOwner = this
-        viewDataBinding!!.executePendingBindings()
+        viewDataBinding?.setVariable(bindingVariable, mViewModel)
+        viewDataBinding?.lifecycleOwner = this
+        viewDataBinding?.executePendingBindings()
     }
 
     fun hideKeyboard() {
         if (baseActivity != null) {
-            baseActivity!!.hideKeyboard()
+            baseActivity?.hideKeyboard()
         }
     }
 
     val isNetworkConnected: Boolean
-        get() = baseActivity != null && baseActivity!!.isNetworkConnected
+        get() = baseActivity != null && baseActivity?.isNetworkConnected!!
 
     fun openActivityOnTokenExpire() {
         if (baseActivity != null) {
-            baseActivity!!.openActivityOnTokenExpire()
+            baseActivity?.openActivityOnTokenExpire()
         }
     }
 

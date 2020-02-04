@@ -10,23 +10,23 @@ import javax.inject.Singleton
 class AppDbHelper @Inject constructor(private val mAppDatabase: AppDatabase) : DbHelper {
     override fun insertArticle(article: Article?): Observable<Boolean?>? {
         return Observable.fromCallable {
-            mAppDatabase.articleDao()!!.insert(article)
+            mAppDatabase.articleDao()?.insert(article)
             true
         }
     }
 
     override fun deleteArticle(article: Article?): Observable<Boolean?>? {
         return Observable.fromCallable {
-            mAppDatabase.articleDao()!!.delete(article)
+            mAppDatabase.articleDao()?.delete(article)
             true
         }
     }
 
-    override fun findById(id: Long): Observable<Article?>? {
-        return Observable.fromCallable { mAppDatabase.articleDao()!!.findById(id) }
+    override fun findById(id: Long?): Observable<Article?>? {
+        return Observable.fromCallable { id?.let { mAppDatabase.articleDao()?.findById(it) } }
     }
 
     override val allArticles: LiveData<List<Article?>?>?
-        get() = mAppDatabase.articleDao()!!.loadAll()
+        get() = mAppDatabase.articleDao()?.loadAll()
 
 }

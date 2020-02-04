@@ -55,7 +55,7 @@ abstract class BaseActivity<T : ViewDataBinding?, V : BaseViewModel<*>?> :
     @TargetApi(Build.VERSION_CODES.M)
     fun hasPermission(permission: String?): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                checkSelfPermission(permission!!) == PackageManager.PERMISSION_GRANTED
+                permission?.let { checkSelfPermission(it) } == PackageManager.PERMISSION_GRANTED
     }
 
     fun hideKeyboard() {
@@ -69,7 +69,7 @@ abstract class BaseActivity<T : ViewDataBinding?, V : BaseViewModel<*>?> :
 
     fun hideLoading() {
         if (mProgressDialog != null && mProgressDialog!!.isShowing) {
-            mProgressDialog!!.cancel()
+            mProgressDialog?.cancel()
         }
     }
 
@@ -96,7 +96,7 @@ abstract class BaseActivity<T : ViewDataBinding?, V : BaseViewModel<*>?> :
         requestCode: Int
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions!!, requestCode)
+            permissions?.let { requestPermissions(it, requestCode) }
         }
     }
 
@@ -108,7 +108,7 @@ abstract class BaseActivity<T : ViewDataBinding?, V : BaseViewModel<*>?> :
     private fun performDataBinding() {
         viewDataBinding = DataBindingUtil.setContentView<T>(this, layoutId)
         mViewModel = if (mViewModel == null) viewModel else mViewModel
-        viewDataBinding!!.setVariable(bindingVariable, mViewModel)
-        viewDataBinding!!.executePendingBindings()
+        viewDataBinding?.setVariable(bindingVariable, mViewModel)
+        viewDataBinding?.executePendingBindings()
     }
 }
