@@ -13,20 +13,13 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.Articl
 class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>?) :
     RecyclerView.Adapter<BaseViewHolder>() {
     private var mListener: ArticleAdapterListener? = null
+
     override fun getItemCount(): Int {
-        return if (articles != null && articles.size > 0) {
-            articles.size
-        } else {
-            1
-        }
+        return if (articles != null && articles.size > 0) articles.size else 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (articles != null && articles.isNotEmpty()) {
-            VIEW_TYPE_NORMAL
-        } else {
-            VIEW_TYPE_EMPTY
-        }
+        return if (articles != null && articles.isNotEmpty()) VIEW_TYPE_NORMAL else VIEW_TYPE_EMPTY
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -36,40 +29,27 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             VIEW_TYPE_NORMAL -> {
-                val articleViewBinding = ItemArticleViewBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent, false
-                )
-                ArticleViewHolder(articleViewBinding)
-            }
-            VIEW_TYPE_EMPTY -> {
-                val emptyViewBinding =
-                    ItemArticleEmptyViewBinding.inflate(
+                ArticleViewHolder(
+                    ItemArticleViewBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
-                EmptyViewHolder(
-                    emptyViewBinding
                 )
             }
             else -> {
-                val emptyViewBinding =
+                EmptyViewHolder(
                     ItemArticleEmptyViewBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
-                EmptyViewHolder(
-                    emptyViewBinding
                 )
             }
         }
     }
 
     fun addItems(articles: List<ArticlesResponse.Article?>?) {
-        if (articles != null) {
-            for (article in articles) {
-                article?.let { this.articles?.add(it) }
-            }
+        articles?.forEach { article ->
+            article?.let { this.articles?.add(it) }
         }
         notifyDataSetChanged()
     }
@@ -89,11 +69,9 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
 
     inner class ArticleViewHolder(private val mBinding: ItemArticleViewBinding) :
         BaseViewHolder(mBinding.root), ArticleItemViewModelListener {
-        private var marticleItemViewModel: ArticleItemViewModel? = null
         override fun onBind(position: Int) {
             val article = articles?.get(position)
-            marticleItemViewModel = article?.let { ArticleItemViewModel(it, this) }
-            mBinding.viewModel = marticleItemViewModel
+            mBinding.viewModel = article?.let { ArticleItemViewModel(it, this) }
             mBinding.executePendingBindings()
         }
 
@@ -108,8 +86,7 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
     inner class EmptyViewHolder(private val mBinding: ItemArticleEmptyViewBinding) :
         BaseViewHolder(mBinding.root), ArticleEmptyItemViewModelListener {
         override fun onBind(position: Int) {
-            val emptyItemViewModel = ArticleEmptyItemViewModel(this)
-            mBinding.viewModel = emptyItemViewModel
+            mBinding.viewModel = ArticleEmptyItemViewModel(this)
         }
 
         override fun onRetryClick() {

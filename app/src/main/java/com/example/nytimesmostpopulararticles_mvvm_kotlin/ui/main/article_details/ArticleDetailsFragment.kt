@@ -10,7 +10,6 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentArticleDetailsBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseFragment
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_details.ArticleDetailsViewModel
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
@@ -19,7 +18,6 @@ class ArticleDetailsFragment :
     ArticleDetailsNavigator {
     @Inject
     lateinit var factory: ViewModelProviderFactory
-    private var fragmentArticleDetailsBinding: FragmentArticleDetailsBinding? = null
     private var articleDetailsViewModel: ArticleDetailsViewModel? = null
     private var article: Article? = null
 
@@ -53,7 +51,6 @@ class ArticleDetailsFragment :
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentArticleDetailsBinding = getViewDataBinding()
         setUp()
     }
 
@@ -64,22 +61,19 @@ class ArticleDetailsFragment :
 
     private fun setArticle() {
         if (article != null) {
-            fragmentArticleDetailsBinding?.article = article
+            getViewDataBinding()?.article = article
         }
     }
 
     private fun setUpToolbar() {
         if (activity != null) {
-            (activity as MainActivity?)?.setSupportActionBar(fragmentArticleDetailsBinding?.toolbar)
-            val actionBar =
-                (activity as MainActivity?)?.supportActionBar
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true)
-                actionBar.setDisplayShowHomeEnabled(true)
-                actionBar.setDisplayShowTitleEnabled(false)
-            }
+            (activity as MainActivity?)?.setSupportActionBar(getViewDataBinding()?.toolbar)
+            val actionBar = (activity as MainActivity?)?.supportActionBar
+            actionBar?.setDisplayHomeAsUpEnabled(true)
+            actionBar?.setDisplayShowHomeEnabled(true)
+            actionBar?.setDisplayShowTitleEnabled(false)
         }
-        fragmentArticleDetailsBinding?.toolbar?.setNavigationOnClickListener {
+        getViewDataBinding()?.toolbar?.setNavigationOnClickListener {
             if (activity != null) {
                 activity?.onBackPressed()
             }

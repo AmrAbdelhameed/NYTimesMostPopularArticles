@@ -12,20 +12,13 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites.Favo
 class FavoritesAdapter(private val articles: MutableList<Article>?) :
     RecyclerView.Adapter<BaseViewHolder>() {
     private var mListener: FavoritesAdapterListener? = null
+
     override fun getItemCount(): Int {
-        return if (articles != null && articles.size > 0) {
-            articles.size
-        } else {
-            1
-        }
+        return if (articles != null && articles.size > 0) articles.size else 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (articles != null && articles.isNotEmpty()) {
-            VIEW_TYPE_NORMAL
-        } else {
-            VIEW_TYPE_EMPTY
-        }
+        return if (articles != null && articles.isNotEmpty()) VIEW_TYPE_NORMAL else VIEW_TYPE_EMPTY
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -35,41 +28,27 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             VIEW_TYPE_NORMAL -> {
-                val favoritesViewBinding =
+                FavoritesViewHolder(
                     ItemFavoritesViewBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
-                FavoritesViewHolder(favoritesViewBinding)
-            }
-            VIEW_TYPE_EMPTY -> {
-                val emptyViewBinding =
-                    ItemFavoritesEmptyViewBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent, false
-                    )
-                EmptyViewHolder(
-                    emptyViewBinding
                 )
             }
             else -> {
-                val emptyViewBinding =
+                EmptyViewHolder(
                     ItemFavoritesEmptyViewBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
-                EmptyViewHolder(
-                    emptyViewBinding
                 )
             }
         }
     }
 
     fun addItems(articles: List<Article?>?) {
-        if (articles != null) {
-            for (article in articles) {
-                article?.let { this.articles?.add(it) }
-            }
+        articles?.forEach { article ->
+            article?.let { this.articles?.add(it) }
         }
         notifyDataSetChanged()
     }
@@ -88,11 +67,9 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
 
     inner class FavoritesViewHolder(private val mBinding: ItemFavoritesViewBinding) :
         BaseViewHolder(mBinding.root), FavoritesItemViewModelListener {
-        private var mfavoritesItemViewModel: FavoritesItemViewModel? = null
         override fun onBind(position: Int) {
             val article = articles?.get(position)
-            mfavoritesItemViewModel = article?.let { FavoritesItemViewModel(it, this) }
-            mBinding.viewModel = mfavoritesItemViewModel
+            mBinding.viewModel = article?.let { FavoritesItemViewModel(it, this) }
             mBinding.executePendingBindings()
         }
 
@@ -107,10 +84,8 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
     inner class EmptyViewHolder(private val mBinding: ItemFavoritesEmptyViewBinding) :
         BaseViewHolder(mBinding.root) {
         override fun onBind(position: Int) {
-            val emptyItemViewModel = FavoritesEmptyItemViewModel()
-            mBinding.viewModel = emptyItemViewModel
+            mBinding.viewModel = FavoritesEmptyItemViewModel()
         }
-
     }
 
     companion object {

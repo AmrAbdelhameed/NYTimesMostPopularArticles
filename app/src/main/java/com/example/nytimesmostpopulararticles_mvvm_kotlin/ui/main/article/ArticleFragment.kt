@@ -7,8 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BR
@@ -29,9 +27,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
     lateinit var factory: ViewModelProviderFactory
     @Inject
     lateinit var articleAdapter: ArticleAdapter
-    private var fragmentArticleBinding: FragmentArticleBinding? = null
     private var articleViewModel: ArticleViewModel? = null
-    private var navController: NavController? = null
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -64,15 +60,15 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
                 article?.media?.get(0)?.mediametadata?.get(1)?.url
             )
         )
-        navController?.navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
+        getNavController()?.navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
     }
 
     override fun handleError(throwable: Throwable?) {
         Toast.makeText(activity, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun updateArticle(articles: List<ArticlesResponse.Article?>?) {
-        articleAdapter.addItems(articles)
+    override fun setData(data: List<ArticlesResponse.Article?>?) {
+        articleAdapter.addItems(data)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,24 +82,21 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentArticleBinding = getViewDataBinding()
-        navController = Navigation.findNavController(view)
         setUp()
     }
 
     private fun setUp() {
         if (activity != null) (activity as MainActivity?)?.setSupportActionBar(
-            fragmentArticleBinding?.toolbar
+            getViewDataBinding()?.toolbar
         )
         setHasOptionsMenu(true)
         setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        fragmentArticleBinding?.resultsBeanRecyclerView?.layoutManager =
-            LinearLayoutManager(activity)
-        fragmentArticleBinding?.resultsBeanRecyclerView?.itemAnimator = DefaultItemAnimator()
-        fragmentArticleBinding?.resultsBeanRecyclerView?.adapter = articleAdapter
+        getViewDataBinding()?.resultsBeanRecyclerView?.layoutManager = LinearLayoutManager(activity)
+        getViewDataBinding()?.resultsBeanRecyclerView?.itemAnimator = DefaultItemAnimator()
+        getViewDataBinding()?.resultsBeanRecyclerView?.adapter = articleAdapter
     }
 
     override fun onCreateOptionsMenu(
@@ -116,7 +109,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorites) {
-            navController?.navigate(R.id.action_articleFragment_to_favoritesFragment)
+            getNavController()?.navigate(R.id.action_articleFragment_to_favoritesFragment)
         }
         return super.onOptionsItemSelected(item)
     }

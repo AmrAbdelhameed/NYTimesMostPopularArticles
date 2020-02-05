@@ -11,8 +11,7 @@ class ArticleViewModel(
     dataManager: DataManager?,
     schedulerProvider: SchedulerProvider?
 ) : BaseViewModel<ArticleNavigator?>(dataManager, schedulerProvider) {
-    private val articlesLiveData: MutableLiveData<List<ArticlesResponse.Article>> =
-        MutableLiveData()
+    private val articlesLiveData: MutableLiveData<List<ArticlesResponse.Article>> = MutableLiveData()
 
     fun fetchArticles(period: Int) {
         setIsLoading(true)
@@ -41,4 +40,5 @@ class ArticleViewModel(
     init {
         fetchArticles(7)
     }
+
 }
