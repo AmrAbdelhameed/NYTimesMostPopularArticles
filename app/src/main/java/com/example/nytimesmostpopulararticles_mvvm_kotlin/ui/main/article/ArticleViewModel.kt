@@ -11,22 +11,24 @@ class ArticleViewModel(
     appDataManager: AppDataManager,
     schedulerProvider: SchedulerProvider
 ) : BaseViewModel<ArticleNavigator>(appDataManager, schedulerProvider) {
-    private val articlesLiveData: MutableLiveData<List<ArticlesResponse.Article>> = MutableLiveData()
+    private val articlesLiveData: MutableLiveData<List<ArticlesResponse.Article>> =
+        MutableLiveData()
 
     fun fetchArticles(period: Int) {
         setIsLoading(true)
-        compositeDisposable.add(appDataManager.getApiRepository().getArticles(period)
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
-            .subscribe({ articlesResponse ->
-                if (articlesResponse.articles != null) {
-                    articlesLiveData.value = articlesResponse.articles
-                }
-                setIsLoading(false)
-            }) { throwable ->
-                setIsLoading(false)
-                navigator?.handleError(throwable)
-            })
+        compositeDisposable.add(
+            appDataManager.getApiRepository().getArticles(period)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({ articlesResponse ->
+                    if (articlesResponse.articles != null) {
+                        articlesLiveData.value = articlesResponse.articles
+                    }
+                    setIsLoading(false)
+                }) { throwable ->
+                    setIsLoading(false)
+                    navigator?.handleError(throwable)
+                })
     }
 
     val articlesLiveDataLiveData: LiveData<List<ArticlesResponse.Article>>

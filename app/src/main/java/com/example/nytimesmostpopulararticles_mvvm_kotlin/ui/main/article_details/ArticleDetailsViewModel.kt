@@ -15,70 +15,64 @@ class ArticleDetailsViewModel(
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun insertArticle(article: Article) {
-        appDataManager.getDbRepository().insertArticle(article)
-            .subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
-            ?.subscribe({ _article ->
-                Log.d(
-                    TAG,
-                    "insertArticle: $_article"
-                )
-                isFavorite.value = true
-            }, { throwable ->
-                Log.d(
-                    TAG,
-                    "insertArticle: " + throwable.message
-                )
-            })?.let {
-                compositeDisposable.add(
-                    it
-                )
-            }
+        compositeDisposable.add(
+            appDataManager.getDbRepository().insertArticle(article)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({
+                    Log.d(
+                        TAG,
+                        "insertArticle: "
+                    )
+                    isFavorite.value = true
+                }, { throwable ->
+                    Log.d(
+                        TAG,
+                        "insertArticle: " + throwable.message
+                    )
+                })
+        )
     }
 
     private fun deleteArticle(article: Article) {
-        appDataManager.getDbRepository().deleteArticle(article)
-            .subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
-            ?.subscribe({ unit ->
-                Log.d(
-                    TAG,
-                    "deleteArticle: $unit"
-                )
-                isFavorite.value = false
-            }, { throwable ->
-                Log.d(
-                    TAG,
-                    "deleteArticle: " + throwable.message
-                )
-            })?.let {
-                compositeDisposable.add(
-                    it
-                )
-            }
+        compositeDisposable.add(
+            appDataManager.getDbRepository().deleteArticle(article)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({
+                    Log.d(
+                        TAG,
+                        "deleteArticle: "
+                    )
+                    isFavorite.value = false
+                }, { throwable ->
+                    Log.d(
+                        TAG,
+                        "deleteArticle: " + throwable.message
+                    )
+                })
+        )
     }
 
     fun findById(id: Long) {
-        appDataManager.getDbRepository().findById(id)
-            .subscribeOn(schedulerProvider.io())
-            ?.observeOn(schedulerProvider.ui())
-            ?.subscribe({ article ->
-                Log.d(
-                    TAG,
-                    "findById: " + article?.id
-                )
-                isFavorite.value = true
-            }, { throwable ->
-                Log.d(
-                    TAG,
-                    "findById: " + throwable.message
-                )
-                isFavorite.setValue(false)
-            })?.let {
-                compositeDisposable.add(
-                    it
-                )
-            }
+        compositeDisposable.add(
+            appDataManager.getDbRepository().findById(id)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({ article ->
+                    Log.d(
+                        TAG,
+                        "findById: " + article?.id
+                    )
+                    isFavorite.value = true
+                }, { throwable ->
+                    Log.d(
+                        TAG,
+                        "findById: " + throwable.message
+                    )
+                    isFavorite.setValue(false)
+                })
+        )
     }
 
     fun onFavClick(
