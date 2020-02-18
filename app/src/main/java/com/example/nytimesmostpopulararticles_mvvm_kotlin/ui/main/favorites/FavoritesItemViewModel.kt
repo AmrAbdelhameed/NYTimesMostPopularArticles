@@ -17,7 +17,7 @@ class FavoritesItemViewModel(
     }
 
     interface FavoritesItemViewModelListener {
-        fun onItemClick(article: Article?)
+        fun onItemClick(article: Article)
     }
 
 }

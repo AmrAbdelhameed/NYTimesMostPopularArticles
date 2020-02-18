@@ -11,7 +11,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-abstract class BaseActivity<T : ViewDataBinding?, V : BaseViewModel<*>?> : AppCompatActivity(),
+abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppCompatActivity(),
     HasAndroidInjector {
 
     @Inject
@@ -49,8 +49,8 @@ abstract class BaseActivity<T : ViewDataBinding?, V : BaseViewModel<*>?> : AppCo
 
     private fun performDataBinding() {
         val viewDataBinding = DataBindingUtil.setContentView<T>(this, layoutId)
-        viewDataBinding?.setVariable(bindingVariable, viewModel)
-        viewDataBinding?.executePendingBindings()
+        viewDataBinding.setVariable(bindingVariable, viewModel)
+        viewDataBinding.executePendingBindings()
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

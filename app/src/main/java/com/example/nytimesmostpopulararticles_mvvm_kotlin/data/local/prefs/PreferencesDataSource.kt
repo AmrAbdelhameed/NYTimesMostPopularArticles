@@ -1,3 +1,3 @@
 package com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.prefs
 
-interface PreferencesHelper 
+interface PreferencesDataSource

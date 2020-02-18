@@ -12,11 +12,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.android.support.AndroidSupportInjection
 
-abstract class BaseFragment<T : ViewDataBinding?, V : BaseViewModel<*>?> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment() {
 
-    private var viewDataBinding: T? = null
+    private lateinit var viewDataBinding: T
     private var mViewModel: V? = null
-    private var navController: NavController? = null
+    private lateinit var navController: NavController
 
     /**
      * Override for set binding variable
@@ -45,11 +45,11 @@ abstract class BaseFragment<T : ViewDataBinding?, V : BaseViewModel<*>?> : Fragm
         setHasOptionsMenu(false)
     }
 
-    fun getViewDataBinding(): T? {
+    fun getViewDataBinding(): T {
         return viewDataBinding
     }
 
-    fun getNavController(): NavController? {
+    fun getNavController(): NavController {
         return navController
     }
 
@@ -57,9 +57,9 @@ abstract class BaseFragment<T : ViewDataBinding?, V : BaseViewModel<*>?> : Fragm
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewDataBinding = DataBindingUtil.inflate<T>(inflater, layoutId, container, false)
-        return viewDataBinding?.root
+    ): View {
+        viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        return viewDataBinding.root
     }
 
     override fun onViewCreated(
@@ -68,9 +68,9 @@ abstract class BaseFragment<T : ViewDataBinding?, V : BaseViewModel<*>?> : Fragm
     ) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        getViewDataBinding()?.setVariable(bindingVariable, mViewModel)
-        getViewDataBinding()?.lifecycleOwner = this
-        getViewDataBinding()?.executePendingBindings()
+        getViewDataBinding().setVariable(bindingVariable, mViewModel)
+        getViewDataBinding().lifecycleOwner = this
+        getViewDataBinding().executePendingBindings()
     }
 
     private fun performDependencyInjection() {

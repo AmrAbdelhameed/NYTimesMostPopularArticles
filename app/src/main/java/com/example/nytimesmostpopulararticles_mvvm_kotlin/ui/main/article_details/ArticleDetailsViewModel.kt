@@ -3,24 +3,25 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_detai
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.DataManager
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseViewModel
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProvider
 
 class ArticleDetailsViewModel(
-    dataManager: DataManager?,
-    schedulerProvider: SchedulerProvider?
-) : BaseViewModel<ArticleDetailsNavigator?>(dataManager, schedulerProvider) {
+    appDataManager: AppDataManager,
+    schedulerProvider: SchedulerProvider
+) : BaseViewModel<ArticleDetailsNavigator>(appDataManager, schedulerProvider) {
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
-    private fun insertArticle(article: Article?) {
-        dataManager?.insertArticle(article)
-            ?.subscribeOn(schedulerProvider?.io())
-            ?.observeOn(schedulerProvider?.ui())
-            ?.subscribe({ aBoolean ->
+
+    private fun insertArticle(article: Article) {
+        appDataManager.getDbRepository().insertArticle(article)
+            .subscribeOn(schedulerProvider.io())
+            ?.observeOn(schedulerProvider.ui())
+            ?.subscribe({ _article ->
                 Log.d(
                     TAG,
-                    "insertArticle: $aBoolean"
+                    "insertArticle: $_article"
                 )
                 isFavorite.value = true
             }, { throwable ->
@@ -35,14 +36,14 @@ class ArticleDetailsViewModel(
             }
     }
 
-    private fun deleteArticle(article: Article?) {
-        dataManager?.deleteArticle(article)
-            ?.subscribeOn(schedulerProvider?.io())
-            ?.observeOn(schedulerProvider?.ui())
-            ?.subscribe({ aBoolean ->
+    private fun deleteArticle(article: Article) {
+        appDataManager.getDbRepository().deleteArticle(article)
+            .subscribeOn(schedulerProvider.io())
+            ?.observeOn(schedulerProvider.ui())
+            ?.subscribe({ unit ->
                 Log.d(
                     TAG,
-                    "deleteArticle: $aBoolean"
+                    "deleteArticle: $unit"
                 )
                 isFavorite.value = false
             }, { throwable ->
@@ -57,10 +58,10 @@ class ArticleDetailsViewModel(
             }
     }
 
-    fun findById(id: Long?) {
-        dataManager?.findById(id)
-            ?.subscribeOn(schedulerProvider?.io())
-            ?.observeOn(schedulerProvider?.ui())
+    fun findById(id: Long) {
+        appDataManager.getDbRepository().findById(id)
+            .subscribeOn(schedulerProvider.io())
+            ?.observeOn(schedulerProvider.ui())
             ?.subscribe({ article ->
                 Log.d(
                     TAG,
@@ -82,7 +83,7 @@ class ArticleDetailsViewModel(
 
     fun onFavClick(
         isFavorite: Boolean,
-        article: Article?
+        article: Article
     ) {
         if (isFavorite) deleteArticle(article) else insertArticle(article)
     }

@@ -18,7 +18,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
 class FavoritesFragment :
-    BaseFragment<FragmentFavoritesBinding?, FavoritesViewModel?>(), FavoritesNavigator,
+    BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>(), FavoritesNavigator,
     FavoritesAdapterListener {
     @Inject
     lateinit var factory: ViewModelProviderFactory
@@ -32,28 +32,28 @@ class FavoritesFragment :
     override val layoutId: Int
         get() = R.layout.fragment_favorites
 
-    override val viewModel: FavoritesViewModel?
+    override val viewModel: FavoritesViewModel
         get() {
             favoritesViewModel = ViewModelProvider(this, factory).get(
                 FavoritesViewModel::class.java
             )
-            return favoritesViewModel
+            return favoritesViewModel as FavoritesViewModel
         }
 
-    override fun onItemClick(article: Article?) {
+    override fun onItemClick(article: Article) {
         val bundle = Bundle()
         bundle.putParcelable(AppConstants.ARTICLE, article)
-        getNavController()?.navigate(
+        getNavController().navigate(
             R.id.action_favoritesFragment_to_articleDetailsFragment,
             bundle
         )
     }
 
-    override fun handleError(throwable: Throwable?) {
-        Toast.makeText(activity, throwable?.message, Toast.LENGTH_SHORT).show()
+    override fun handleError(throwable: Throwable) {
+        Toast.makeText(activity, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun setData(data: List<Article?>?) {
+    override fun setData(data: List<Article>) {
         favoritesAdapter.addItems(data)
     }
 
@@ -73,13 +73,13 @@ class FavoritesFragment :
 
     private fun setUp() {
         if (activity != null) {
-            (activity as MainActivity?)?.setSupportActionBar(getViewDataBinding()?.toolbar)
-            getViewDataBinding()?.toolbar?.title = getString(R.string.favorites)
-            val actionBar = (activity as MainActivity?)?.supportActionBar
+            (activity as MainActivity).setSupportActionBar(getViewDataBinding().toolbar)
+            getViewDataBinding().toolbar.title = getString(R.string.favorites)
+            val actionBar = (activity as MainActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
             actionBar?.setDisplayShowHomeEnabled(true)
         }
-        getViewDataBinding()?.toolbar?.setNavigationOnClickListener {
+        getViewDataBinding().toolbar.setNavigationOnClickListener {
             if (activity != null) {
                 activity?.onBackPressed()
             }
@@ -89,10 +89,10 @@ class FavoritesFragment :
     }
 
     private fun setUpRecyclerView() {
-        getViewDataBinding()?.favoritesRecyclerView?.layoutManager = LinearLayoutManager(
+        getViewDataBinding().favoritesRecyclerView.layoutManager = LinearLayoutManager(
             activity
         )
-        getViewDataBinding()?.favoritesRecyclerView?.itemAnimator = DefaultItemAnimator()
-        getViewDataBinding()?.favoritesRecyclerView?.adapter = favoritesAdapter
+        getViewDataBinding().favoritesRecyclerView.itemAnimator = DefaultItemAnimator()
+        getViewDataBinding().favoritesRecyclerView.adapter = favoritesAdapter
     }
 }

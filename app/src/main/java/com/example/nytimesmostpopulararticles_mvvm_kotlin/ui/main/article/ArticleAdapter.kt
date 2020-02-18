@@ -64,7 +64,7 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
 
     interface ArticleAdapterListener {
         fun onRetryClick()
-        fun onItemClick(article: ArticlesResponse.Article?)
+        fun onItemClick(article: ArticlesResponse.Article)
     }
 
     inner class ArticleViewHolder(private val mBinding: ItemArticleViewBinding) :
@@ -75,10 +75,8 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
             mBinding.executePendingBindings()
         }
 
-        override fun onItemClick(article: ArticlesResponse.Article?) {
-            if (article != null) {
-                mListener?.onItemClick(article)
-            }
+        override fun onItemClick(article: ArticlesResponse.Article) {
+            mListener?.onItemClick(article)
         }
 
     }
@@ -87,6 +85,7 @@ class ArticleAdapter(private val articles: MutableList<ArticlesResponse.Article>
         BaseViewHolder(mBinding.root), ArticleEmptyItemViewModelListener {
         override fun onBind(position: Int) {
             mBinding.viewModel = ArticleEmptyItemViewModel(this)
+            mBinding.executePendingBindings()
         }
 
         override fun onRetryClick() {

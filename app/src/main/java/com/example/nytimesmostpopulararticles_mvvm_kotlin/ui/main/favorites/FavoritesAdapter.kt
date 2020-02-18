@@ -62,7 +62,7 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
     }
 
     interface FavoritesAdapterListener {
-        fun onItemClick(article: Article?)
+        fun onItemClick(article: Article)
     }
 
     inner class FavoritesViewHolder(private val mBinding: ItemFavoritesViewBinding) :
@@ -73,10 +73,8 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
             mBinding.executePendingBindings()
         }
 
-        override fun onItemClick(article: Article?) {
-            if (article != null) {
-                mListener?.onItemClick(article)
-            }
+        override fun onItemClick(article: Article) {
+            mListener?.onItemClick(article)
         }
 
     }
@@ -85,6 +83,7 @@ class FavoritesAdapter(private val articles: MutableList<Article>?) :
         BaseViewHolder(mBinding.root) {
         override fun onBind(position: Int) {
             mBinding.viewModel = FavoritesEmptyItemViewModel()
+            mBinding.executePendingBindings()
         }
     }
 

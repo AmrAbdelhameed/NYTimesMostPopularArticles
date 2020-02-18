@@ -17,7 +17,7 @@ class ArticleItemViewModel(
     }
 
     interface ArticleItemViewModelListener {
-        fun onItemClick(article: ArticlesResponse.Article?)
+        fun onItemClick(article: ArticlesResponse.Article)
     }
 
 }

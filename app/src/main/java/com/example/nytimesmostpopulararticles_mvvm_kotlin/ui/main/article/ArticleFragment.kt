@@ -21,7 +21,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.Articl
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
-class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>(),
+class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>(),
     ArticleNavigator, ArticleAdapterListener {
     @Inject
     lateinit var factory: ViewModelProviderFactory
@@ -35,39 +35,39 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
     override val layoutId: Int
         get() = R.layout.fragment_article
 
-    override val viewModel: ArticleViewModel?
+    override val viewModel: ArticleViewModel
         get() {
             articleViewModel = ViewModelProvider(this, factory).get(ArticleViewModel::class.java)
-            return articleViewModel
+            return articleViewModel as ArticleViewModel
         }
 
     override fun onRetryClick() {
         articleViewModel?.fetchArticles(7)
     }
 
-    override fun onItemClick(article: ArticlesResponse.Article?) {
+    override fun onItemClick(article: ArticlesResponse.Article) {
         val bundle = Bundle()
         bundle.putParcelable(
             AppConstants.ARTICLE,
             Article(
-                article?.id
-                , article?.media?.get(0)?.mediametadata?.get(2)?.url
-                , article?.title
-                , article?.byline
-                , article?.abstractX
-                , article?.published_date
-                , article?.url,
-                article?.media?.get(0)?.mediametadata?.get(1)?.url
+                article.id
+                , article.media?.get(0)?.mediametadata?.get(2)?.url
+                , article.title
+                , article.byline
+                , article.abstractX
+                , article.published_date
+                , article.url,
+                article.media?.get(0)?.mediametadata?.get(1)?.url
             )
         )
-        getNavController()?.navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
+        getNavController().navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
     }
 
-    override fun handleError(throwable: Throwable?) {
-        Toast.makeText(activity, throwable?.message, Toast.LENGTH_SHORT).show()
+    override fun handleError(throwable: Throwable) {
+        Toast.makeText(activity, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun setData(data: List<ArticlesResponse.Article?>?) {
+    override fun setData(data: List<ArticlesResponse.Article>) {
         articleAdapter.addItems(data)
     }
 
@@ -86,17 +86,17 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
     }
 
     private fun setUp() {
-        if (activity != null) (activity as MainActivity?)?.setSupportActionBar(
-            getViewDataBinding()?.toolbar
+        if (activity != null) (activity as MainActivity).setSupportActionBar(
+            getViewDataBinding().toolbar
         )
         setHasOptionsMenu(true)
         setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        getViewDataBinding()?.resultsBeanRecyclerView?.layoutManager = LinearLayoutManager(activity)
-        getViewDataBinding()?.resultsBeanRecyclerView?.itemAnimator = DefaultItemAnimator()
-        getViewDataBinding()?.resultsBeanRecyclerView?.adapter = articleAdapter
+        getViewDataBinding().resultsBeanRecyclerView.layoutManager = LinearLayoutManager(activity)
+        getViewDataBinding().resultsBeanRecyclerView.itemAnimator = DefaultItemAnimator()
+        getViewDataBinding().resultsBeanRecyclerView.adapter = articleAdapter
     }
 
     override fun onCreateOptionsMenu(
@@ -109,7 +109,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding?, ArticleViewModel?>
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorites) {
-            getNavController()?.navigate(R.id.action_articleFragment_to_favoritesFragment)
+            getNavController().navigate(R.id.action_articleFragment_to_favoritesFragment)
         }
         return super.onOptionsItemSelected(item)
     }

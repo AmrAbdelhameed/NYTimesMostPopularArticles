@@ -7,8 +7,8 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 
 @Database(
     entities = [Article::class],
-    version = 2
+    version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun articleDao(): ArticleDao?
+    abstract fun articleDao(): ArticleDao
 }

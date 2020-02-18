@@ -9,7 +9,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseActivity
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding?, MainViewModel?>(),
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     HasAndroidInjector {
     @Inject
     lateinit var factory: ViewModelProviderFactory
@@ -20,6 +20,6 @@ class MainActivity : BaseActivity<ActivityMainBinding?, MainViewModel?>(),
     override val layoutId: Int
         get() = R.layout.activity_main
 
-    override val viewModel: MainViewModel?
+    override val viewModel: MainViewModel
         get() = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 }

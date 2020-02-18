@@ -14,7 +14,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
 class ArticleDetailsFragment :
-    BaseFragment<FragmentArticleDetailsBinding?, ArticleDetailsViewModel?>(),
+    BaseFragment<FragmentArticleDetailsBinding, ArticleDetailsViewModel>(),
     ArticleDetailsNavigator {
     @Inject
     lateinit var factory: ViewModelProviderFactory
@@ -27,12 +27,11 @@ class ArticleDetailsFragment :
     override val layoutId: Int
         get() = R.layout.fragment_article_details
 
-    override val viewModel: ArticleDetailsViewModel?
+    override val viewModel: ArticleDetailsViewModel
         get() {
-            articleDetailsViewModel = ViewModelProvider(this, factory).get(
-                ArticleDetailsViewModel::class.java
-            )
-            return articleDetailsViewModel
+            articleDetailsViewModel =
+                ViewModelProvider(this, factory).get(ArticleDetailsViewModel::class.java)
+            return articleDetailsViewModel as ArticleDetailsViewModel
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,19 +60,19 @@ class ArticleDetailsFragment :
 
     private fun setArticle() {
         if (article != null) {
-            getViewDataBinding()?.article = article
+            getViewDataBinding().article = article
         }
     }
 
     private fun setUpToolbar() {
         if (activity != null) {
-            (activity as MainActivity?)?.setSupportActionBar(getViewDataBinding()?.toolbar)
-            val actionBar = (activity as MainActivity?)?.supportActionBar
+            (activity as MainActivity).setSupportActionBar(getViewDataBinding().toolbar)
+            val actionBar = (activity as MainActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
             actionBar?.setDisplayShowHomeEnabled(true)
             actionBar?.setDisplayShowTitleEnabled(false)
         }
-        getViewDataBinding()?.toolbar?.setNavigationOnClickListener {
+        getViewDataBinding().toolbar.setNavigationOnClickListener {
             if (activity != null) {
                 activity?.onBackPressed()
             }

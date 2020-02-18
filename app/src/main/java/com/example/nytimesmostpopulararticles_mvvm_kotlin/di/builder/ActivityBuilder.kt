@@ -11,5 +11,5 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [MainActivityModule::class, ArticleFragmentProvider::class, ArticleDetailsFragmentProvider::class, FavoritesFragmentProvider::class])
-    abstract fun bindMainActivity(): MainActivity?
+    abstract fun bindMainActivity(): MainActivity
 }

@@ -2,14 +2,14 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.DataManager
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 
 abstract class BaseViewModel<N>(
-    val dataManager: DataManager?,
-    val schedulerProvider: SchedulerProvider?
+    val appDataManager: AppDataManager,
+    val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     val isLoading = ObservableBoolean()
     val compositeDisposable: CompositeDisposable = CompositeDisposable()
