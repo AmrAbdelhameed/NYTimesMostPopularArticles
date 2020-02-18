@@ -1,6 +1,6 @@
 # NYTimesMostPopularArticles_MVVM_Kotlin (Clean_Architecture)
 
-This repository contains a simple app to hit the NY Times Most Popular Articles API and show a list of articles, that shows details when items on the list are tapped (a typical master/detail app), also user able to browse/ add articles to favorite list that implements MVVM architecture using Dagger2, RxJava2, FastAndroidNetworking, LiveData, RoomDatabase, Database Debugging, DataBinding and Navigation Component.
+This repository contains a simple app to hit the NY Times Most Popular Articles API and show a list of articles, that shows details when items on the list are tapped (a typical master/detail app), also user able to browse/ add articles to favorite list that implements MVVM architecture using Dagger2, Retrofit, RxJava2, LiveData, RoomDatabase, Database Debugging, DataBinding and Navigation Component.
 
 <br>
 <p align="center">
@@ -40,7 +40,7 @@ This repository contains a simple app to hit the NY Times Most Popular Articles 
 1. RxJava2: https://github.com/ReactiveX/RxJava
 2. RxAndroid: https://github.com/ReactiveX/RxAndroid
 3. Dagger2: https://github.com/MindorksOpenSource/android-dagger2-example
-4. FastAndroidNetworking: https://github.com/amitshekhariitbhu/Fast-Android-Networking
+4. Retrofit: https://square.github.io/retrofit/
 5. Room: https://developer.android.com/topic/libraries/architecture/room.html
 6. AndroidDebugDatabase: https://github.com/amitshekhariitbhu/Android-Debug-Database
 7. DataBinding: https://developer.android.com/topic/libraries/data-binding
