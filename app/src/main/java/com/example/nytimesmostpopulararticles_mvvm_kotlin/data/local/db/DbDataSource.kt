@@ -2,11 +2,11 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.db
 
 import androidx.lifecycle.LiveData
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
-import io.reactivex.Observable
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
 
 interface DbDataSource {
-    fun insertArticle(article: Article): Observable<Unit>
-    fun deleteArticle(article: Article): Observable<Unit>
-    fun findById(id: Long): Observable<Article>
+    suspend fun insertArticle(article: Article)
+    suspend fun deleteArticle(article: Article)
+    suspend fun findById(id: Long): Result<Article>
     fun allArticles(): LiveData<List<Article>>
 }

@@ -1,78 +1,45 @@
 package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_details
 
-import android.util.Log
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseViewModel
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProvider
+import kotlinx.coroutines.launch
 
 class ArticleDetailsViewModel(
-    appDataManager: AppDataManager,
-    schedulerProvider: SchedulerProvider
-) : BaseViewModel<ArticleDetailsNavigator>(appDataManager, schedulerProvider) {
+    application: Application,
+    appDataManager: AppDataManager
+) : BaseViewModel<ArticleDetailsNavigator>(application, appDataManager) {
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun insertArticle(article: Article) {
-        compositeDisposable.add(
+        launch {
             appDataManager.getDbRepository().insertArticle(article)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe({
-                    Log.d(
-                        TAG,
-                        "insertArticle: "
-                    )
-                    isFavorite.value = true
-                }, { throwable ->
-                    Log.d(
-                        TAG,
-                        "insertArticle: " + throwable.message
-                    )
-                })
-        )
+            isFavorite.value = true
+        }
     }
 
     private fun deleteArticle(article: Article) {
-        compositeDisposable.add(
+        launch {
             appDataManager.getDbRepository().deleteArticle(article)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe({
-                    Log.d(
-                        TAG,
-                        "deleteArticle: "
-                    )
-                    isFavorite.value = false
-                }, { throwable ->
-                    Log.d(
-                        TAG,
-                        "deleteArticle: " + throwable.message
-                    )
-                })
-        )
+            isFavorite.value = false
+        }
     }
 
     fun findById(id: Long) {
-        compositeDisposable.add(
-            appDataManager.getDbRepository().findById(id)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe({ article ->
-                    Log.d(
-                        TAG,
-                        "findById: " + article?.id
-                    )
+        launch {
+            when (appDataManager.getDbRepository().findById(id)) {
+                is Result.Success<Article> -> {
                     isFavorite.value = true
-                }, { throwable ->
-                    Log.d(
-                        TAG,
-                        "findById: " + throwable.message
-                    )
-                    isFavorite.setValue(false)
-                })
-        )
+                }
+                is Result.Error -> {
+                    isFavorite.value = false
+                }
+            }
+        }
     }
 
     fun onFavClick(
@@ -84,10 +51,6 @@ class ArticleDetailsViewModel(
 
     fun getIsFavorite(): LiveData<Boolean> {
         return isFavorite
-    }
-
-    companion object {
-        private const val TAG = "ArticleDetailsViewModel"
     }
 
 }

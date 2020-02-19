@@ -11,9 +11,6 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.ApiInfo
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.DatabaseInfo
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.PreferenceInfo
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.AppSchedulerProvider
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.rx.SchedulerProvider
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -40,7 +37,6 @@ class AppModule {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 
@@ -73,10 +69,5 @@ class AppModule {
     @Singleton
     fun provideSharedPreferences(@PreferenceInfo prefName: String, context: Context): SharedPreferences {
         return context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
-    }
-
-    @Provides
-    fun provideSchedulerProvider(): SchedulerProvider {
-        return AppSchedulerProvider()
     }
 }

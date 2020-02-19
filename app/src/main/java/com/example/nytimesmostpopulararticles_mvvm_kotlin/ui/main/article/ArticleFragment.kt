@@ -63,8 +63,8 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
         getNavController().navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
     }
 
-    override fun handleError(throwable: Throwable) {
-        Toast.makeText(activity, throwable.message, Toast.LENGTH_SHORT).show()
+    override fun handleError(message: String?) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun setData(data: List<ArticlesResponse.Article>) {
