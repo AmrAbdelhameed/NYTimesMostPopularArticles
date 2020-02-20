@@ -40,9 +40,9 @@ class FavoritesFragment :
             return favoritesViewModel as FavoritesViewModel
         }
 
-    override fun onItemClick(article: Article) {
+    override fun onItemClick(item: Article) {
         val bundle = Bundle()
-        bundle.putParcelable(AppConstants.ARTICLE, article)
+        bundle.putParcelable(AppConstants.ARTICLE, item)
         getNavController().navigate(
             R.id.action_favoritesFragment_to_articleDetailsFragment,
             bundle

@@ -31,7 +31,7 @@
             android:id="@+id/favoritesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter_fav="@{viewModel.articlesLiveDataLiveData}"
+            app:adapter="@{viewModel.articlesLiveDataLiveData}"
             tools:listitem="@layout/item_favorites_view" />
     </LinearLayout>
 </layout>

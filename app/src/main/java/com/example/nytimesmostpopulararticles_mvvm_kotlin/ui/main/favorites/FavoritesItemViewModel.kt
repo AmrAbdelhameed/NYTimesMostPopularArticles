@@ -2,6 +2,7 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites
 
 import androidx.databinding.ObservableField
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseItemListener
 
 class FavoritesItemViewModel(
     private val article: Article,
@@ -16,8 +17,6 @@ class FavoritesItemViewModel(
         mListener.onItemClick(article)
     }
 
-    interface FavoritesItemViewModelListener {
-        fun onItemClick(article: Article)
-    }
+    interface FavoritesItemViewModelListener : BaseItemListener<Article>
 
 }

@@ -45,19 +45,19 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
         articleViewModel?.fetchArticles(7)
     }
 
-    override fun onItemClick(article: ArticlesResponse.Article) {
+    override fun onItemClick(item: ArticlesResponse.Article) {
         val bundle = Bundle()
         bundle.putParcelable(
             AppConstants.ARTICLE,
             Article(
-                article.id
-                , article.media?.get(0)?.mediametadata?.get(2)?.url
-                , article.title
-                , article.byline
-                , article.abstractX
-                , article.published_date
-                , article.url,
-                article.media?.get(0)?.mediametadata?.get(1)?.url
+                item.id
+                , item.media?.get(0)?.mediametadata?.get(2)?.url
+                , item.title
+                , item.byline
+                , item.abstractX
+                , item.published_date
+                , item.url,
+                item.media?.get(0)?.mediametadata?.get(1)?.url
             )
         )
         getNavController().navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)

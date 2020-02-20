@@ -2,12 +2,14 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article
 
 import androidx.databinding.ObservableField
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.api.ArticlesResponse
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseItemListener
 
 class ArticleItemViewModel(
     private val article: ArticlesResponse.Article,
     private val mListener: ArticleItemViewModelListener
 ) {
-    val imageUrl: ObservableField<String?> = ObservableField(article.media?.get(0)?.mediametadata?.get(1)?.url)
+    val imageUrl: ObservableField<String?> =
+        ObservableField(article.media?.get(0)?.mediametadata?.get(1)?.url)
     val title: ObservableField<String?> = ObservableField(article.title)
     val byline: ObservableField<String?> = ObservableField(article.byline)
     val publishedDate: ObservableField<String?> = ObservableField(article.published_date)
@@ -16,8 +18,6 @@ class ArticleItemViewModel(
         mListener.onItemClick(article)
     }
 
-    interface ArticleItemViewModelListener {
-        fun onItemClick(article: ArticlesResponse.Article)
-    }
+    interface ArticleItemViewModelListener : BaseItemListener<ArticlesResponse.Article>
 
 }
