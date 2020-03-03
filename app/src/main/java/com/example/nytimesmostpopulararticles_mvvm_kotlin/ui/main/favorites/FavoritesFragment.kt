@@ -13,6 +13,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentFavoritesBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseFragment
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleDataItem
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites.FavoritesAdapter.FavoritesAdapterListener
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
@@ -42,7 +43,18 @@ class FavoritesFragment :
 
     override fun onItemClick(item: Article) {
         val bundle = Bundle()
-        bundle.putParcelable(AppConstants.ARTICLE, item)
+        bundle.putParcelable(
+            AppConstants.ARTICLE, ArticleDataItem(
+                item.id
+                , item.imageUrl
+                , item.title
+                , item.byline
+                , item.abstractX
+                , item.publishedDate
+                , item.url
+                , item.coverImageUrl
+            )
+        )
         getNavController().navigate(
             R.id.action_favoritesFragment_to_articleDetailsFragment,
             bundle

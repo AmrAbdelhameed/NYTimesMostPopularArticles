@@ -2,7 +2,6 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.api.ArticlesResponse
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.ItemArticleEmptyViewBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.ItemArticleViewBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseEmptyItemListener
@@ -13,12 +12,16 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.Articl
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants.VIEW_TYPE_EMPTY
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants.VIEW_TYPE_NORMAL
 
-class ArticleAdapter(items: MutableList<ArticlesResponse.Article>) :
-    BaseRecyclerViewAdapter<ArticlesResponse.Article>(items) {
+class ArticleAdapter(items: MutableList<ArticleDataItem>) :
+    BaseRecyclerViewAdapter<ArticleDataItem>(items) {
     private lateinit var mListener: ArticleAdapterListener
 
     fun setListener(listener: ArticleAdapterListener) {
         mListener = listener
+    }
+
+    override fun getItemCount(): Int {
+        return if (items.size > 0) items.size else 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -46,7 +49,7 @@ class ArticleAdapter(items: MutableList<ArticlesResponse.Article>) :
         }
     }
 
-    interface ArticleAdapterListener : BaseItemListener<ArticlesResponse.Article>,
+    interface ArticleAdapterListener : BaseItemListener<ArticleDataItem>,
         BaseEmptyItemListener
 
     inner class ArticleViewHolder(private val mBinding: ItemArticleViewBinding) :
@@ -57,7 +60,7 @@ class ArticleAdapter(items: MutableList<ArticlesResponse.Article>) :
             mBinding.executePendingBindings()
         }
 
-        override fun onItemClick(item: ArticlesResponse.Article) {
+        override fun onItemClick(item: ArticleDataItem) {
             mListener.onItemClick(item)
         }
 

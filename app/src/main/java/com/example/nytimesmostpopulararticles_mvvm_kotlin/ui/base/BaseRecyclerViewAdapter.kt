@@ -8,10 +8,6 @@ abstract class BaseRecyclerViewAdapter<T>(val items: MutableList<T>) :
         holder.onBind(position)
     }
 
-    override fun getItemCount(): Int {
-        return if (items.size > 0) items.size else 1
-    }
-
     fun addItems(items: List<T>?) {
         items?.let { this.items.addAll(it) }
         notifyDataSetChanged()

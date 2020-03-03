@@ -20,6 +20,10 @@ class FavoritesAdapter(items: MutableList<Article>) :
         mListener = listener
     }
 
+    override fun getItemCount(): Int {
+        return if (items.size > 0) items.size else 1
+    }
+
     override fun getItemViewType(position: Int): Int {
         return if (items.isNotEmpty()) VIEW_TYPE_NORMAL else VIEW_TYPE_EMPTY
     }

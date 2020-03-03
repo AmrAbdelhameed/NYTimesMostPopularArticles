@@ -7,6 +7,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseViewModel
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleDataItem
 import kotlinx.coroutines.launch
 
 class ArticleDetailsViewModel(
@@ -15,16 +16,38 @@ class ArticleDetailsViewModel(
 ) : BaseViewModel<ArticleDetailsNavigator>(application, appDataManager) {
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
 
-    private fun insertArticle(article: Article) {
+    private fun insertArticle(articleDataItem: ArticleDataItem) {
         launch {
-            appDataManager.getDbRepository().insertArticle(article)
+            appDataManager.getDbRepository().insertArticle(
+                Article(
+                    articleDataItem.id
+                    , articleDataItem.imageUrl
+                    , articleDataItem.title
+                    , articleDataItem.byline
+                    , articleDataItem.abstractX
+                    , articleDataItem.publishedDate
+                    , articleDataItem.url
+                    , articleDataItem.coverImageUrl
+                )
+            )
             isFavorite.value = true
         }
     }
 
-    private fun deleteArticle(article: Article) {
+    private fun deleteArticle(articleDataItem: ArticleDataItem) {
         launch {
-            appDataManager.getDbRepository().deleteArticle(article)
+            appDataManager.getDbRepository().deleteArticle(
+                Article(
+                    articleDataItem.id
+                    , articleDataItem.imageUrl
+                    , articleDataItem.title
+                    , articleDataItem.byline
+                    , articleDataItem.abstractX
+                    , articleDataItem.publishedDate
+                    , articleDataItem.url
+                    , articleDataItem.coverImageUrl
+                )
+            )
             isFavorite.value = false
         }
     }
@@ -44,9 +67,9 @@ class ArticleDetailsViewModel(
 
     fun onFavClick(
         isFavorite: Boolean,
-        article: Article
+        articleDataItem: ArticleDataItem
     ) {
-        if (isFavorite) deleteArticle(article) else insertArticle(article)
+        if (isFavorite) deleteArticle(articleDataItem) else insertArticle(articleDataItem)
     }
 
     fun getIsFavorite(): LiveData<Boolean> {

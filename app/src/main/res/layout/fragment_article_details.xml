@@ -7,7 +7,7 @@
 
         <variable
             name="article"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article" />
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleDataItem" />
 
         <variable
             name="viewModel"

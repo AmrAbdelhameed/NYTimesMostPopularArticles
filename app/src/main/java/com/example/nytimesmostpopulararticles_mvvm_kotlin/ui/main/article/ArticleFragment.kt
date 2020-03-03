@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BR
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.R
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ViewModelProviderFactory
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.api.ArticlesResponse
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentArticleBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseFragment
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity
@@ -45,20 +43,11 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
         articleViewModel?.fetchArticles(7)
     }
 
-    override fun onItemClick(item: ArticlesResponse.Article) {
+    override fun onItemClick(item: ArticleDataItem) {
         val bundle = Bundle()
         bundle.putParcelable(
             AppConstants.ARTICLE,
-            Article(
-                item.id
-                , item.media?.get(0)?.mediametadata?.get(2)?.url
-                , item.title
-                , item.byline
-                , item.abstractX
-                , item.published_date
-                , item.url,
-                item.media?.get(0)?.mediametadata?.get(1)?.url
-            )
+            item
         )
         getNavController().navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle)
     }
@@ -67,7 +56,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun setData(data: List<ArticlesResponse.Article>) {
+    override fun setData(data: List<ArticleDataItem>) {
         articleAdapter.addItems(data)
     }
 

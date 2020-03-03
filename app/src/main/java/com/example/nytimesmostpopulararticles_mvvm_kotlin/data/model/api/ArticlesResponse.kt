@@ -14,14 +14,15 @@ class ArticlesResponse {
         var title: String? = null
         @SerializedName("abstract")
         var abstractX: String? = null
-        var published_date: String? = null
+        @SerializedName("published_date")
+        var publishedDate: String? = null
         var media: List<MediaBean>? = null
 
         class MediaBean {
             @SerializedName("media-metadata")
-            var mediametadata: List<MediametadataBean>? = null
+            var mediaMetaData: List<MediaMetaDataBean>? = null
 
-            class MediametadataBean {
+            class MediaMetaDataBean {
                 var url: String? = null
             }
         }

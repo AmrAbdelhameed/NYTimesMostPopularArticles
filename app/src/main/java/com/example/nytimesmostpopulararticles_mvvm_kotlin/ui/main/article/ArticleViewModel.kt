@@ -13,15 +13,14 @@ class ArticleViewModel(
     application: Application,
     appDataManager: AppDataManager
 ) : BaseViewModel<ArticleNavigator>(application, appDataManager) {
-    private val articlesLiveData: MutableLiveData<List<ArticlesResponse.Article>> =
-        MutableLiveData()
+    private val articlesLiveData: MutableLiveData<List<ArticleDataItem>> = MutableLiveData()
 
     fun fetchArticles(period: Int) {
         launch {
             setIsLoading(true)
             when (val result = appDataManager.getApiRepository().getArticles(period)) {
                 is Result.Success<ArticlesResponse> -> {
-                    articlesLiveData.value = result.data.articles
+                    result.data.articles?.let { mapArticlesDataItem(it) }
                     setIsLoading(false)
                 }
                 is Result.Error -> {
@@ -32,11 +31,25 @@ class ArticleViewModel(
         }
     }
 
-    val articlesLiveDataLiveData: LiveData<List<ArticlesResponse.Article>>
+    val articlesLiveDataLiveData: LiveData<List<ArticleDataItem>>
         get() = articlesLiveData
 
     init {
         fetchArticles(7)
     }
 
+    private fun mapArticlesDataItem(articles: List<ArticlesResponse.Article>) {
+        articlesLiveData.value = articles.map {
+            ArticleDataItem(
+                it.id
+                , if (!it.media.isNullOrEmpty()) it.media?.get(0)?.mediaMetaData?.get(2)?.url else ""
+                , it.title
+                , it.byline
+                , it.abstractX
+                , it.publishedDate
+                , it.url,
+                if (!it.media.isNullOrEmpty()) it.media?.get(0)?.mediaMetaData?.get(1)?.url else ""
+            )
+        }
+    }
 }

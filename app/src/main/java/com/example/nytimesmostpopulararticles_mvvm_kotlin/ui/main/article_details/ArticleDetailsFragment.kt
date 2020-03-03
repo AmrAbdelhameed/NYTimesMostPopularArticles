@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BR
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.R
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ViewModelProviderFactory
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentArticleDetailsBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseFragment
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleDataItem
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class ArticleDetailsFragment :
     @Inject
     lateinit var factory: ViewModelProviderFactory
     private var articleDetailsViewModel: ArticleDetailsViewModel? = null
-    private var article: Article? = null
+    private var articleDataItem: ArticleDataItem? = null
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -38,9 +38,9 @@ class ArticleDetailsFragment :
         super.onCreate(savedInstanceState)
         articleDetailsViewModel?.setNavigator(this)
         if (arguments != null) {
-            article = arguments?.getParcelable(AppConstants.ARTICLE)
-            if (article != null) { // To check if article is favorite or not
-                article?.id?.let { articleDetailsViewModel?.findById(it) }
+            articleDataItem = arguments?.getParcelable(AppConstants.ARTICLE)
+            if (articleDataItem != null) { // To check if article is favorite or not
+                articleDataItem?.id?.let { articleDetailsViewModel?.findById(it) }
             }
         }
     }
@@ -59,8 +59,8 @@ class ArticleDetailsFragment :
     }
 
     private fun setArticle() {
-        if (article != null) {
-            getViewDataBinding().article = article
+        if (articleDataItem != null) {
+            getViewDataBinding().article = articleDataItem
         }
     }
 
