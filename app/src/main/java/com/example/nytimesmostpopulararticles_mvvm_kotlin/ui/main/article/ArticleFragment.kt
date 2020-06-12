@@ -15,15 +15,14 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ViewModelProviderFacto
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentArticleBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseFragment
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleAdapter.ArticleAdapterListener
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleItemViewModel.*
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
 class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>(),
-    ArticleNavigator, ArticleAdapterListener {
+    ArticleNavigator, ArticleItemViewModelListener {
     @Inject
     lateinit var factory: ViewModelProviderFactory
-    @Inject
     lateinit var articleAdapter: ArticleAdapter
     private var articleViewModel: ArticleViewModel? = null
 
@@ -63,13 +62,10 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         articleViewModel?.setNavigator(this)
-        articleAdapter.setListener(this)
+        articleAdapter = ArticleAdapter(arrayListOf(), this)
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp()
     }

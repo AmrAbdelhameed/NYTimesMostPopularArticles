@@ -3,6 +3,7 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.api.ArticlesResponse
@@ -16,7 +17,7 @@ class ArticleViewModel(
     private val articlesLiveData: MutableLiveData<List<ArticleDataItem>> = MutableLiveData()
 
     fun fetchArticles(period: Int) {
-        launch {
+        viewModelScope.launch {
             setIsLoading(true)
             when (val result = appDataManager.getApiRepository().getArticles(period)) {
                 is Result.Success<ArticlesResponse> -> {

@@ -5,8 +5,8 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseItemListener
 
 class FavoritesItemViewModel(
-    private val article: Article,
-    private val mListener: FavoritesItemViewModelListener
+    article: Article,
+    private val action: () -> Unit
 ) {
     val imageUrl: ObservableField<String?> = ObservableField(article.imageUrl)
     val title: ObservableField<String?> = ObservableField(article.title)
@@ -14,9 +14,11 @@ class FavoritesItemViewModel(
     val publishedDate: ObservableField<String?> = ObservableField(article.publishedDate)
 
     fun onItemClick() {
-        mListener.onItemClick(article)
+        action.invoke()
     }
 
-    interface FavoritesItemViewModelListener : BaseItemListener<Article>
+    interface FavoritesItemViewModelListener : BaseItemListener<Article> {
+        override fun onRetryClick() {}
+    }
 
 }

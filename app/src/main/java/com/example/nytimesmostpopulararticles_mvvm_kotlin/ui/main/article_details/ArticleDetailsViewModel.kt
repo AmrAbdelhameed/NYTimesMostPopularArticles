@@ -3,6 +3,7 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_detai
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
@@ -17,7 +18,7 @@ class ArticleDetailsViewModel(
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun insertArticle(articleDataItem: ArticleDataItem) {
-        launch {
+        viewModelScope.launch {
             appDataManager.getDbRepository().insertArticle(
                 Article(
                     articleDataItem.id
@@ -35,7 +36,7 @@ class ArticleDetailsViewModel(
     }
 
     private fun deleteArticle(articleDataItem: ArticleDataItem) {
-        launch {
+        viewModelScope.launch {
             appDataManager.getDbRepository().deleteArticle(
                 Article(
                     articleDataItem.id
@@ -53,7 +54,7 @@ class ArticleDetailsViewModel(
     }
 
     fun findById(id: Long) {
-        launch {
+        viewModelScope.launch {
             when (appDataManager.getDbRepository().findById(id)) {
                 is Result.Success<Article> -> {
                     isFavorite.value = true

@@ -11,18 +11,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ApiRepository @Inject constructor(private val apiService: ApiService, @param:ApiInfo private val apiKey: String) :
-    ApiDataSource {
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+class ApiRepository @Inject constructor(
+    private val apiService: ApiService,
+    @param:ApiInfo private val apiKey: String
+) : ApiDataSource {
 
-    override suspend fun getArticles(period: Int): Result<ArticlesResponse> =
-        withContext(ioDispatcher) {
-            try {
-                val articlesResponse = apiService.getArticles(period, apiKey)
-                return@withContext Result.Success(articlesResponse)
-            } catch (e: Exception) {
-                return@withContext Result.Error(e.localizedMessage)
-            }
+    override suspend fun getArticles(period: Int): Result<ArticlesResponse> {
+        return try {
+            val articlesResponse = apiService.getArticles(period, apiKey)
+            Result.Success(articlesResponse)
+        } catch (e: Exception) {
+            Result.Error(e.localizedMessage)
         }
-
+    }
 }

@@ -8,7 +8,6 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.BuildConfig
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.db.AppDatabase
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.remote.network.ApiService
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.ApiInfo
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.DatabaseInfo
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.PreferenceInfo
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import dagger.Module
@@ -47,27 +46,16 @@ class AppModule {
     }
 
     @Provides
-    @DatabaseInfo
-    fun provideDatabaseName(): String {
-        return AppConstants.DB_NAME
+    @Singleton
+    fun provideAppDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, AppConstants.DB_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@DatabaseInfo dbName: String, context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, dbName)
-            .fallbackToDestructiveMigration().build()
-    }
-
-    @Provides
-    @PreferenceInfo
-    fun providePreferenceName(): String {
-        return AppConstants.PREF_NAME
-    }
-
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(@PreferenceInfo prefName: String, context: Context): SharedPreferences {
-        return context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE)
     }
 }

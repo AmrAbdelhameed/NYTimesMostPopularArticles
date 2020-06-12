@@ -10,5 +10,5 @@ class FavoritesViewModel(
     application: Application,
     appDataManager: AppDataManager
 ) : BaseViewModel<FavoritesNavigator>(application, appDataManager) {
-    val articlesLiveDataLiveData: LiveData<List<Article>> = appDataManager.getDbRepository().allArticles()
+    val articlesLiveData: LiveData<List<Article>> = appDataManager.getDbRepository().allArticles()
 }

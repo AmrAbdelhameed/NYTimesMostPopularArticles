@@ -8,17 +8,12 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseEmptyItemL
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseItemListener
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseRecyclerViewAdapter
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseViewHolder
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleItemViewModel.ArticleItemViewModelListener
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleItemViewModel.*
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants.VIEW_TYPE_EMPTY
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants.VIEW_TYPE_NORMAL
 
-class ArticleAdapter(items: MutableList<ArticleDataItem>) :
-    BaseRecyclerViewAdapter<ArticleDataItem>(items) {
-    private lateinit var mListener: ArticleAdapterListener
-
-    fun setListener(listener: ArticleAdapterListener) {
-        mListener = listener
-    }
+class ArticleAdapter(items: MutableList<ArticleDataItem>, listener: ArticleItemViewModelListener) :
+    BaseRecyclerViewAdapter<ArticleDataItem>(items, listener) {
 
     override fun getItemCount(): Int {
         return if (items.size > 0) items.size else 1
@@ -49,34 +44,21 @@ class ArticleAdapter(items: MutableList<ArticleDataItem>) :
         }
     }
 
-    interface ArticleAdapterListener : BaseItemListener<ArticleDataItem>,
-        BaseEmptyItemListener
-
     inner class ArticleViewHolder(private val mBinding: ItemArticleViewBinding) :
-        BaseViewHolder(mBinding.root), ArticleItemViewModelListener {
+        BaseViewHolder(mBinding.root) {
         override fun onBind(position: Int) {
             val article = items[position]
-            mBinding.viewModel = ArticleItemViewModel(article, this)
+            mBinding.viewModel = ArticleItemViewModel(article) { itemListener.onItemClick(article) }
             mBinding.executePendingBindings()
         }
-
-        override fun onItemClick(item: ArticleDataItem) {
-            mListener.onItemClick(item)
-        }
-
     }
 
     inner class EmptyViewHolder(private val mBinding: ItemArticleEmptyViewBinding) :
-        BaseViewHolder(mBinding.root), BaseEmptyItemListener {
+        BaseViewHolder(mBinding.root) {
         override fun onBind(position: Int) {
-            mBinding.viewModel = ArticleEmptyItemViewModel(this)
+            mBinding.viewModel = ArticleEmptyItemViewModel { itemListener.onRetryClick() }
             mBinding.executePendingBindings()
         }
-
-        override fun onRetryClick() {
-            mListener.onRetryClick()
-        }
-
     }
 
 }

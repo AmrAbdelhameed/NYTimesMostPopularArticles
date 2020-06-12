@@ -11,7 +11,7 @@ class AppDataManager @Inject constructor(
     private val apiRepository: ApiRepository,
     private val dbRepository: DbRepository,
     private val preferencesRepository: PreferencesRepository
-) : DataManager {
+) {
     fun getApiRepository(): ApiRepository {
         return apiRepository
     }
