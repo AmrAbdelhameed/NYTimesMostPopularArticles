@@ -14,19 +14,9 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseViewModel<N>(
     val application: Application,
     val appDataManager: AppDataManager
-) : ViewModel(), CoroutineScope {
+) : ViewModel() {
     val isLoading = ObservableBoolean()
     private var mNavigator: WeakReference<N>? = null
-
-    private val job: Job = SupervisorJob()
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job // By default child coroutines will run on the main thread.
-
-    override fun onCleared() {
-        super.onCleared()
-        job.cancel() // Parent Job cancels all child coroutines.
-    }
 
     fun setIsLoading(b: Boolean) {
         isLoading.set(b)
