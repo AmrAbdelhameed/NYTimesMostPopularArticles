@@ -44,10 +44,11 @@ class FavoritesAdapter(items: MutableList<Article>, listener: FavoritesItemViewM
     }
 
     inner class FavoritesViewHolder(private val mBinding: ItemFavoritesViewBinding) :
-        BaseViewHolder(mBinding.root){
+        BaseViewHolder(mBinding.root) {
         override fun onBind(position: Int) {
             val article = items[position]
-            mBinding.viewModel = FavoritesItemViewModel(article) {itemListener.onItemClick(article)}
+            mBinding.viewModel =
+                FavoritesItemViewModel(article) { itemListener.onItemClick(article) }
             mBinding.executePendingBindings()
         }
     }

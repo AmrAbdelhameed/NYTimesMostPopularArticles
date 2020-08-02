@@ -8,7 +8,6 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.BuildConfig
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.db.AppDatabase
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.remote.network.ApiService
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.ApiInfo
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.PreferenceInfo
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import dagger.Module
 import dagger.Provides

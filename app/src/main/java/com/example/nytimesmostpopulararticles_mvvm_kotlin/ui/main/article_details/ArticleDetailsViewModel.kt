@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class ArticleDetailsViewModel(
     application: Application,
     appDataManager: AppDataManager
-) : BaseViewModel<ArticleDetailsNavigator>(application, appDataManager) {
+) : BaseViewModel(application, appDataManager) {
     private val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun insertArticle(articleDataItem: ArticleDataItem) {

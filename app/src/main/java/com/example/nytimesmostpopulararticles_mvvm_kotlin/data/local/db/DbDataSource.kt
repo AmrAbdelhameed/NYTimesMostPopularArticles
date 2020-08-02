@@ -1,8 +1,8 @@
 package com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.db
 
 import androidx.lifecycle.LiveData
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 
 interface DbDataSource {
     suspend fun insertArticle(article: Article)

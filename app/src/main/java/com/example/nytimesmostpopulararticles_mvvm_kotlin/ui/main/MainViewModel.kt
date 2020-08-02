@@ -7,4 +7,4 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseViewModel
 class MainViewModel(
     application: Application,
     appDataManager: AppDataManager
-) : BaseViewModel<Any>(application, appDataManager)
+) : BaseViewModel(application, appDataManager)

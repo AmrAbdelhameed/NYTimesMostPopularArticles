@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.ItemArticleEmptyViewBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.ItemArticleViewBinding
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseEmptyItemListener
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseItemListener
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseRecyclerViewAdapter
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseViewHolder
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleItemViewModel.*
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleItemViewModel.ArticleItemViewModelListener
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants.VIEW_TYPE_EMPTY
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants.VIEW_TYPE_NORMAL
 

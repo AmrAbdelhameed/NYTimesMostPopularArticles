@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class ArticleViewModel(
     application: Application,
     appDataManager: AppDataManager
-) : BaseViewModel<ArticleNavigator>(application, appDataManager) {
+) : BaseViewModel(application, appDataManager) {
     private val articlesLiveData: MutableLiveData<List<ArticleDataItem>> = MutableLiveData()
 
     fun fetchArticles(period: Int) {
@@ -26,7 +26,7 @@ class ArticleViewModel(
                 }
                 is Result.Error -> {
                     setIsLoading(false)
-                    navigator?.handleError(result.message)
+                    showToast.value = result.message
                 }
             }
         }
@@ -43,12 +43,18 @@ class ArticleViewModel(
         articlesLiveData.value = articles.map {
             ArticleDataItem(
                 it.id
-                , if (!it.media.isNullOrEmpty()) it.media?.get(0)?.mediaMetaData?.get(2)?.url else ""
-                , it.title
-                , it.byline
-                , it.abstractX
-                , it.publishedDate
-                , it.url,
+                ,
+                if (!it.media.isNullOrEmpty()) it.media?.get(0)?.mediaMetaData?.get(2)?.url else ""
+                ,
+                it.title
+                ,
+                it.byline
+                ,
+                it.abstractX
+                ,
+                it.publishedDate
+                ,
+                it.url,
                 if (!it.media.isNullOrEmpty()) it.media?.get(0)?.mediaMetaData?.get(1)?.url else ""
             )
         }

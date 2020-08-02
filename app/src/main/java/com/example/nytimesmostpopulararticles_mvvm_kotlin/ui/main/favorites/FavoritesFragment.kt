@@ -2,7 +2,6 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,14 +11,13 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.ViewModelProviderFacto
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.db.Article
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentFavoritesBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseFragment
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.base.BaseItemListener
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleDataItem
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
 class FavoritesFragment :
-    BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>(), FavoritesNavigator,
+    BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>(),
     FavoritesItemViewModel.FavoritesItemViewModelListener {
     @Inject
     lateinit var factory: ViewModelProviderFactory
@@ -60,17 +58,8 @@ class FavoritesFragment :
         )
     }
 
-    override fun handleError(message: String?) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun setData(data: List<Article>) {
-        favoritesAdapter.addItems(data)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoritesViewModel?.setNavigator(this)
         favoritesAdapter = FavoritesAdapter(arrayListOf(), this)
     }
 

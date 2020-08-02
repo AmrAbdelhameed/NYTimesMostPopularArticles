@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBuilder::class])
 interface AppComponent {
     fun inject(app: CustomApplication)
+
     @Component.Builder
     interface Builder {
         @BindsInstance

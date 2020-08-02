@@ -4,9 +4,6 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.Result
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.model.api.ArticlesResponse
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.remote.network.ApiService
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.ApiInfo
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -4,29 +4,16 @@ import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.AppDataManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import java.lang.ref.WeakReference
-import kotlin.coroutines.CoroutineContext
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.SingleLiveEvent
 
-abstract class BaseViewModel<N>(
+abstract class BaseViewModel(
     val application: Application,
     val appDataManager: AppDataManager
 ) : ViewModel() {
     val isLoading = ObservableBoolean()
-    private var mNavigator: WeakReference<N>? = null
+    val showToast: SingleLiveEvent<String> = SingleLiveEvent()
 
     fun setIsLoading(b: Boolean) {
         isLoading.set(b)
     }
-
-    val navigator: N?
-        get() = mNavigator?.get()
-
-    fun setNavigator(navigator: N) {
-        mNavigator = WeakReference(navigator)
-    }
-
 }

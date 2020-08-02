@@ -12,8 +12,10 @@ class ArticlesResponse {
         var byline: String? = null
         var type: String? = null
         var title: String? = null
+
         @SerializedName("abstract")
         var abstractX: String? = null
+
         @SerializedName("published_date")
         var publishedDate: String? = null
         var media: List<MediaBean>? = null

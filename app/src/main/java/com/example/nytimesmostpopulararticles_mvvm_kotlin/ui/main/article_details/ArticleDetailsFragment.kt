@@ -14,8 +14,7 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import javax.inject.Inject
 
 class ArticleDetailsFragment :
-    BaseFragment<FragmentArticleDetailsBinding, ArticleDetailsViewModel>(),
-    ArticleDetailsNavigator {
+    BaseFragment<FragmentArticleDetailsBinding, ArticleDetailsViewModel>() {
     @Inject
     lateinit var factory: ViewModelProviderFactory
     private var articleDetailsViewModel: ArticleDetailsViewModel? = null
@@ -36,7 +35,6 @@ class ArticleDetailsFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        articleDetailsViewModel?.setNavigator(this)
         if (arguments != null) {
             articleDataItem = arguments?.getParcelable(AppConstants.ARTICLE)
             if (articleDataItem != null) { // To check if article is favorite or not
