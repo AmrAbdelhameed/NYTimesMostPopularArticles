@@ -1,6 +1,6 @@
-# NYTimesMostPopularArticles_MVVM_Kotlin (Clean_Architecture)
+# NYTimesMostPopularArticles
 
-This repository contains a simple app to hit the NY Times Most Popular Articles API and show a list of articles, that shows details when items on the list are tapped (a typical master/detail app), also user able to browse/ add articles to favorite list that implements MVVM architecture using Dagger2, Retrofit, Coroutines, LiveData, RoomDatabase, Database Debugging, DataBinding and Navigation Component.
+A simple app to hit the NY Times Most Popular Articles API and show a list of articles, that shows details when items on the list are tapped (a typical master/detail app), also user able to browse/ add articles to favorite list that implements MVVM architecture using Dagger2, Retrofit, Coroutines, LiveData, RoomDatabase, Database Debugging, DataBinding and Navigation Component.
 
 <br>
 <p align="center">
@@ -13,7 +13,7 @@ This repository contains a simple app to hit the NY Times Most Popular Articles 
 ## The app has following packages:
 1. **data**: It contains all the data accessing and manipulating components.
 2. **di**: Dependency providing classes using Dagger2.
-3. **ui**: View classes along with their corresponding Presenters.
+3. **presenation**: View classes along with their corresponding Presenters.
 4. **utils**: Utility classes.
 #### Classes have been designed in such a way that it could be inherited and maximize the code reuse.
 <br>
@@ -46,7 +46,7 @@ This repository contains a simple app to hit the NY Times Most Popular Articles 
 7. Navigation Component: https://developer.android.com/guide/navigation/navigation-getting-started
 <br>
 
-#### Java version: https://github.com/AmrAbdelhameed/NYTimesMostPopularArticles_MVVM
+#### Java version: https://github.com/AmrAbdelhameed/NYTimesMostPopularArticles-JavaVersion
 
 ## License
 ```
