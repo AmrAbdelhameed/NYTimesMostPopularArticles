@@ -19,12 +19,6 @@ A simple app to hit the NY Times Most Popular Articles API and show a list of ar
 #### Classes have been designed in such a way that it could be inherited and maximize the code reuse.
 <br>
 
-//## Project Structure
-//<p align="center">
-//    <img src="project_arch_screen.jpg"/>
-//</p>
-//<br>
-
 ## Navigation Component Graph
 <p align="center">
     <img src="nav_graph.png"/>
