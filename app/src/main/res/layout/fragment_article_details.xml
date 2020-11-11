@@ -7,11 +7,11 @@
 
         <variable
             name="article"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleDataItem" />
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleDataItem" />
 
         <variable
             name="viewModel"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_details.ArticleDetailsViewModel" />
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article_details.ArticleDetailsViewModel" />
     </data>
 
     <RelativeLayout
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                tools:context=".ui.main.article_details.ArticleDetailsFragment">
+                tools:context=".presentation.main.article_details.ArticleDetailsFragment">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

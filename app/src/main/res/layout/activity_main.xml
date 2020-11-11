@@ -6,13 +6,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainViewModel" />
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".presentation.main.MainActivity">
 
         <fragment
             android:id="@+id/nav_host_fragment"

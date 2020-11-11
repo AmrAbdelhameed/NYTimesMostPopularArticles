@@ -1,9 +1,9 @@
 package com.example.nytimesmostpopulararticles_mvvm_kotlin.di.component
 
 import android.app.Application
+import com.example.nytimesmostArticlearticles_mvvm_kotlin.di.module.AppModule
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.CustomApplication
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.builder.ActivityBuilder
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

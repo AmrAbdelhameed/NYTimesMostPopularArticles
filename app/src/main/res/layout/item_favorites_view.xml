@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites.FavoritesItemViewModel" />
+            name="article"
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.dto.db.Article" />
+
+        <variable
+            name="item"
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.favorites.FavoritesItemView" />
 
     </data>
 
@@ -20,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@color/white"
-            android:onClick="@{() -> viewModel.onItemClick()}"
+            android:onClick="@{() -> item.onItemClick()}"
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp">
 
@@ -34,7 +38,7 @@
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:scaleType="centerCrop"
-                    app:imageUrlCrop="@{viewModel.imageUrl}"
+                    app:imageUrlCrop="@{article.imageUrl}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
-                        android:text="@{viewModel.title}"
+                        android:text="@{article.title}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -69,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:singleLine="true"
-                        android:text="@{viewModel.byline}"
+                        android:text="@{article.byline}"
                         android:textColor="@color/gray"
                         android:textSize="12sp"
                         tools:text="By JULIAN E. BARNES, NICHOLAS FANDOS, MICHAEL S. SCHMIDT and MATTHEW ROSENBERG" />
@@ -95,7 +99,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:singleLine="true"
-                            android:text="@{viewModel.publishedDate}"
+                            android:text="@{article.publishedDate}"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             tools:text="2019-09-19" />

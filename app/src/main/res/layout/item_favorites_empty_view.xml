@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites.FavoritesEmptyItemViewModel" />
-    </data>
-
     <LinearLayout
         android:id="@+id/linearLayoutView"
         android:layout_width="match_parent"

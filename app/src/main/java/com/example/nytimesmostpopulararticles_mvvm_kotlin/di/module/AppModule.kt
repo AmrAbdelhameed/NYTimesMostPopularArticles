@@ -1,13 +1,18 @@
-package com.example.nytimesmostpopulararticles_mvvm_kotlin.di.module
+package com.example.nytimesmostArticlearticles_mvvm_kotlin.di.module
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BuildConfig
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.db.AppDatabase
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.remote.network.ApiService
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.ArticleDataSource
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.ArticleDetailsDataSource
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.ArticleFavoritesDataSource
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.local.AppDatabase
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.remote.ApiService
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.di.ApiInfo
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.repository.ArticleDetailsRepository
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.repository.ArticleFavoritesRepository
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.repository.ArticleRepository
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
 import dagger.Module
 import dagger.Provides
@@ -54,7 +59,19 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE)
+    fun provideArticleDataSource(ArticleRepository: ArticleRepository): ArticleDataSource {
+        return ArticleRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideArticleDetailsDataSource(ArticleDetailsRepository: ArticleDetailsRepository): ArticleDetailsDataSource {
+        return ArticleDetailsRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideArticleFavoritesDataSource(ArticleFavoritesRepository: ArticleFavoritesRepository): ArticleFavoritesDataSource {
+        return ArticleFavoritesRepository
     }
 }

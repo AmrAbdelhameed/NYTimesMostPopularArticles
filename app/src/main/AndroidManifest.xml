@@ -13,7 +13,7 @@
         android:roundIcon="@drawable/ic_articles"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.MainActivity">
+        <activity android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

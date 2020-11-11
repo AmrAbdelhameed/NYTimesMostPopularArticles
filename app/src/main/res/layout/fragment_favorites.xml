@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites.FavoritesViewModel" />
+            type="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.favorites.FavoritesViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        tools:context=".ui.main.favorites.FavoritesFragment">
+        tools:context=".presentation.main.favorites.FavoritesFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

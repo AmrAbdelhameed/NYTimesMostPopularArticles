@@ -6,11 +6,11 @@
     app:startDestination="@id/articleFragment">
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article.ArticleFragment"
+        android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleFragment"
         android:label="fragment_article"
         tools:layout="@layout/fragment_article">
         <action
-            android:id="@+id/action_articleFragment_to_articleDetailsFragment"
+            android:id="@+id/to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -18,7 +18,7 @@
             app:popExitAnim="@anim/slide_out_right" />
 
         <action
-            android:id="@+id/action_articleFragment_to_favoritesFragment"
+            android:id="@+id/to_favoritesFragment"
             app:destination="@id/favoritesFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -28,18 +28,22 @@
 
     <fragment
         android:id="@+id/articleDetailsFragment"
-        android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.article_details.ArticleDetailsFragment"
+        android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article_details.ArticleDetailsFragment"
         android:label="fragment_article_details"
-        tools:layout="@layout/fragment_article_details" />
+        tools:layout="@layout/fragment_article_details">
+        <argument
+            android:name="article"
+            app:argType="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleDataItem" />
+    </fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.ui.main.favorites.FavoritesFragment"
+        android:name="com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites">
 
         <action
-            android:id="@+id/action_favoritesFragment_to_articleDetailsFragment"
+            android:id="@+id/to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

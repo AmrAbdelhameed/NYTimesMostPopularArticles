@@ -1,0 +1,5 @@
+package com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article
+
+import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.base.BaseItemListener
+
+interface ArticleAdapterListener : BaseItemListener<ArticleDataItem>
