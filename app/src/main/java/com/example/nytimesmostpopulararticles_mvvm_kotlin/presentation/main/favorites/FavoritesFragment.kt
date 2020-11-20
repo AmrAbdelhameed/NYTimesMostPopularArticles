@@ -2,10 +2,8 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.fav
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nytimesmostArticlearticles_mvvm_kotlin.ViewModelProviderFactory
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BR
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.R
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentFavoritesBinding
@@ -15,12 +13,10 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.base.Navi
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.MainActivity
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleDataItem
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleFragmentDirections
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>(),
     FavoritesItemViewModelListener {
-    @Inject
-    lateinit var factory: ViewModelProviderFactory
     private lateinit var favoritesAdapter: FavoritesAdapter
 
     override val bindingVariable: Int
@@ -29,8 +25,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
     override val layoutId: Int
         get() = R.layout.fragment_favorites
 
-    override val viewModel: FavoritesViewModel
-        get() = ViewModelProvider(this, factory).get(FavoritesViewModel::class.java)
+    override val viewModel: FavoritesViewModel by viewModel()
 
     override fun onItemClick(item: Article) {
         navigate(

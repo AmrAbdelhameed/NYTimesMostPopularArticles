@@ -5,22 +5,18 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nytimesmostArticlearticles_mvvm_kotlin.ViewModelProviderFactory
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BR
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.R
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentArticleBinding
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.base.BaseFragment
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.base.NavigationCommand
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.MainActivity
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>(),
     ArticleAdapterListener {
-    @Inject
-    lateinit var factory: ViewModelProviderFactory
     private lateinit var articleAdapter: ArticleAdapter
 
     override val bindingVariable: Int
@@ -29,11 +25,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
     override val layoutId: Int
         get() = R.layout.fragment_article
 
-    override val viewModel: ArticleViewModel
-        get() = ViewModelProvider(
-            this,
-            factory
-        ).get(ArticleViewModel::class.java)
+    override val viewModel: ArticleViewModel by viewModel()
 
     override fun onRetryClick() {
         viewModel.fetchArticles(7)

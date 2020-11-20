@@ -2,8 +2,6 @@ package com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.art
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
-import com.example.nytimesmostArticlearticles_mvvm_kotlin.ViewModelProviderFactory
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.BR
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.R
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.databinding.FragmentArticleDetailsBinding
@@ -11,12 +9,10 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.base.Base
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.MainActivity
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleDataItem
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.utils.AppConstants
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ArticleDetailsFragment :
     BaseFragment<FragmentArticleDetailsBinding, ArticleDetailsViewModel>() {
-    @Inject
-    lateinit var factory: ViewModelProviderFactory
     private var articleDataItem: ArticleDataItem? = null
 
     override val bindingVariable: Int
@@ -25,8 +21,7 @@ class ArticleDetailsFragment :
     override val layoutId: Int
         get() = R.layout.fragment_article_details
 
-    override val viewModel: ArticleDetailsViewModel
-        get() = ViewModelProvider(this, factory).get(ArticleDetailsViewModel::class.java)
+    override val viewModel: ArticleDetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
