@@ -22,7 +22,6 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
     @Inject
     lateinit var factory: ViewModelProviderFactory
     private lateinit var articleAdapter: ArticleAdapter
-    private var articleViewModel: ArticleViewModel? = null
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -31,13 +30,13 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
         get() = R.layout.fragment_article
 
     override val viewModel: ArticleViewModel
-        get() {
-            articleViewModel = ViewModelProvider(this, factory).get(ArticleViewModel::class.java)
-            return articleViewModel as ArticleViewModel
-        }
+        get() = ViewModelProvider(
+            this,
+            factory
+        ).get(ArticleViewModel::class.java)
 
     override fun onRetryClick() {
-        articleViewModel?.fetchArticles(7)
+        viewModel.fetchArticles(7)
     }
 
     override fun onItemClick(item: ArticleDataItem) {

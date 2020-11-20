@@ -17,13 +17,11 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.arti
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleFragmentDirections
 import javax.inject.Inject
 
-class FavoritesFragment :
-    BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>(),
+class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>(),
     FavoritesItemViewModelListener {
     @Inject
     lateinit var factory: ViewModelProviderFactory
     private lateinit var favoritesAdapter: FavoritesAdapter
-    private var favoritesViewModel: FavoritesViewModel? = null
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -32,12 +30,7 @@ class FavoritesFragment :
         get() = R.layout.fragment_favorites
 
     override val viewModel: FavoritesViewModel
-        get() {
-            favoritesViewModel = ViewModelProvider(this, factory).get(
-                FavoritesViewModel::class.java
-            )
-            return favoritesViewModel as FavoritesViewModel
-        }
+        get() = ViewModelProvider(this, factory).get(FavoritesViewModel::class.java)
 
     override fun onItemClick(item: Article) {
         navigate(

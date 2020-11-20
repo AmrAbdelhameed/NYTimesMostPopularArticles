@@ -17,7 +17,6 @@ class ArticleDetailsFragment :
     BaseFragment<FragmentArticleDetailsBinding, ArticleDetailsViewModel>() {
     @Inject
     lateinit var factory: ViewModelProviderFactory
-    private var articleDetailsViewModel: ArticleDetailsViewModel? = null
     private var articleDataItem: ArticleDataItem? = null
 
     override val bindingVariable: Int
@@ -27,18 +26,14 @@ class ArticleDetailsFragment :
         get() = R.layout.fragment_article_details
 
     override val viewModel: ArticleDetailsViewModel
-        get() {
-            articleDetailsViewModel =
-                ViewModelProvider(this, factory).get(ArticleDetailsViewModel::class.java)
-            return articleDetailsViewModel as ArticleDetailsViewModel
-        }
+        get() = ViewModelProvider(this, factory).get(ArticleDetailsViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             articleDataItem = arguments?.getParcelable(AppConstants.ARTICLE)
             if (articleDataItem != null) { // To check if article is favorite or not
-                articleDataItem?.id?.let { articleDetailsViewModel?.getFavoriteById(it) }
+                articleDataItem?.id?.let { viewModel.getFavoriteById(it) }
             }
         }
     }

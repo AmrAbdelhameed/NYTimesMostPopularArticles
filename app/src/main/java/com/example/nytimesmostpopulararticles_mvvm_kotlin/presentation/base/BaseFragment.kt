@@ -14,7 +14,6 @@ import dagger.android.support.AndroidSupportInjection
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
     private lateinit var viewDataBinding: T
-    private var mViewModel: V? = null
 
     /**
      * Override for set binding variable
@@ -39,7 +38,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         performDependencyInjection()
         super.onCreate(savedInstanceState)
-        mViewModel = viewModel
         setHasOptionsMenu(false)
     }
 
@@ -79,7 +77,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        getViewDataBinding().setVariable(bindingVariable, mViewModel)
+        getViewDataBinding().setVariable(bindingVariable, viewModel)
         getViewDataBinding().lifecycleOwner = this
         getViewDataBinding().executePendingBindings()
     }

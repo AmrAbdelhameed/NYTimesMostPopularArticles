@@ -1,6 +1,5 @@
 package com.example.nytimesmostArticlearticles_mvvm_kotlin
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.ArticleDataSource
@@ -15,7 +14,6 @@ import javax.inject.Singleton
 
 @Singleton
 class ViewModelProviderFactory @Inject constructor(
-    private val application: Application,
     private val articleDataSource: ArticleDataSource,
     private val articleDetailsDataSource: ArticleDetailsDataSource,
     private val articleFavoritesDataSource: ArticleFavoritesDataSource
