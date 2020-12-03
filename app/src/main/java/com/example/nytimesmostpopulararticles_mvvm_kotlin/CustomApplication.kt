@@ -9,7 +9,6 @@ import com.example.nytimesmostpopulararticles_mvvm_kotlin.data.remote.Api
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.repository.ArticleDetailsRepository
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.repository.ArticleFavoritesRepository
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.domain.repository.ArticleRepository
-import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.MainViewModel
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article.ArticleViewModel
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.article_details.ArticleDetailsViewModel
 import com.example.nytimesmostpopulararticles_mvvm_kotlin.presentation.main.favorites.FavoritesViewModel
@@ -25,7 +24,6 @@ class CustomApplication : Application() {
             single { Api.Companion.apiService() }
             single { Database.Companion.appDatabase(get()) }
 
-            viewModel { MainViewModel() }
             viewModel { ArticleViewModel(get() as ArticleDataSource) }
             viewModel { ArticleDetailsViewModel(get() as ArticleDetailsDataSource) }
             viewModel { FavoritesViewModel(get() as ArticleFavoritesDataSource) }
